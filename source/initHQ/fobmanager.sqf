@@ -1,11 +1,11 @@
-if (count Array_of_FOBname < 1) exitWith {hint "You don't have any FOB's"};
+if (Array_of_FOBname isEqualTo []) exitWith {hint "You don't have any FOB's"};
 _array_of_fobs_list = [];  // init the array of fobs
 _list = [];
 _array_for_stratmap = [];
 
 _index = -1;
 {
-    _array_of_fobs_list = _array_of_fobs_list + [[getpos _x]]; // add the FOB (pos) into a nested array
+    _array_of_fobs_list = _array_of_fobs_list + [[getPosWorld _x]]; // add the FOB (pos) into a nested array
 
     _index = _index + 1;
     _array_of_fobs_list_selected = _array_of_fobs_list select _index; // select the current array inside _array_of_fobs_list
@@ -39,7 +39,7 @@ if ((20 < daytime) OR (daytime < 5)) then {_isNight=true};
 
 [
     (findDisplay 46),            // 0: DISPLAY - parent display. When empty, mission display is used.
-    getpos player,               // 1: ARRAY - default view position in format [x,y,y] or [x,y]
+    getPosWorld player,               // 1: ARRAY - default view position in format [x,y,y] or [x,y]
     _array_for_stratmap,         // 2: ARRAY - list of missions in format:
     [],                          // 3: ARRAY - list of ORBAT groups in format:
     [],                          // 4: ARRAY - list of markers revealed in strategic map (will be hidden when map is closed)

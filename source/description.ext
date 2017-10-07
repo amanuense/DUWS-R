@@ -1,17 +1,13 @@
 OnLoadMission = "A procedurally generated campaign where you earn resources, execute missions and lead the BLUFOR forces to capture the island and win the war.";
-onLoadName = "Dynamic Universal WAR System - Rebirth (DUWS-R)";
+onLoadName = "Dynamic Universal WAR System - Rebirth (DUWS-R) dedi";
 dev = "dev";
-author = "DUWS-R Team";
+author = "DUWS-R Team modified by Amanuense";
 overviewText = "A procedurally generated campaign where you earn resources, execute missions and lead the BLUFOR forces to capture the island and win the war. Play the way you want: be a spec ops, a squad leader or control a whole army, the choice is yours.";
-overviewPicture = "rtipic.paa";
-LoadScreen = "rtipic.paa";
+//overviewPicture = "rtipic.paa";
+//LoadScreen = "rtipic.paa";
 
-respawn = 3;
-respawnDelay = 4;
-disabledAI = 1;
-
-#include "debriefing.hpp"
 #include "dialog\defines.hpp"
+#include "debriefing.hpp"
 #include "dialog\squad\squadmng.hpp"
 #include "dialog\squad\rename\renamesquad.hpp"
 #include "dialog\request.hpp"
@@ -27,12 +23,27 @@ disabledAI = 1;
 #include "dialog\operative\identities.hpp"
 #include "dialog\operative\operative.hpp"
 #include "params.hpp"
-#include "duws_revive\gui\duws_revive.hpp"
 
-// TAW INIT BEGIN --
+// BEGIN TAW VIEWDISTANCE
 #include "taw_vd\GUI.h"
 class CfgFunctions
 {
-	#include "taw_vd\CfgFunctions.hpp"
+    #include "taw_vd\CfgFunctions.hpp"
 };
-// TAW INIT END --
+// END --
+
+//class CfgTaskTypes
+//{
+//	class destroy
+//	{
+//		icon = taskTypes\destroy_ca.paa;
+//	};
+//	class Ambush
+//	{
+//		icon = taskTypes\ambush_ca.paa;
+//	};
+//	class Heal
+//	{
+//		icon = \A3\Ui_f\data\IGUI\Cfg\simpleTasks\letters\h_ca.paa;
+//	};
+//};

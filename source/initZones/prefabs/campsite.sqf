@@ -19,7 +19,7 @@ _this setPos [1817.7137, 5623.6685, 8.5830688e-006];
 ///////////////////////
 // -- ADD THIS --  2 //
 ///////////////////////
-_centerObj = getpos _vehicle_0; 
+_centerObj = getPosWorld _vehicle_0; 
 _centerX = _centerObj select 0;
 _centerY = _centerObj select 1;
 deleteVehicle _vehicle_0;

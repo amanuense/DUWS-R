@@ -1,6 +1,8 @@
 _centerPos = _this  select 0;
 _fob = _this select 1;
 
+diag_log format["fortifyFOB2.sqf"];
+
 _groupGuard = createGroup WEST;
 
 // AA on the roof
@@ -13,7 +15,7 @@ _fobGuard1 = _groupGuard createUnit ["B_Soldier_F", _centerPos, [], 0, "FORM"];
 _fobGuard1 moveinGunner _aaPod;
 
 // GMG
-_gl1Pod = createVehicle ["B_GMG_01_high_F", [0,0,0], [], 0, "NONE"];
+_gl1Pod = createVehicle ["B_GMG_01_high_F", [0,0], [], 0, "NONE"];
 _gl1Pod allowdamage false;
 _gl1Pod setdamage 0;
 _gl1Pod setpos [(_centerPos select 0)-7, (_centerPos select 1)+5.5];
@@ -41,7 +43,7 @@ _fobGuard1 = _groupGuard createUnit ["B_Soldier_F", _centerPos, [], 0, "FORM"];
 _fobGuard1 moveinGunner _atPod2;
 
 // GMG
-_atPod3 = createVehicle ["B_GMG_01_high_F", [0,0,0], [], 0, "NONE"];
+_atPod3 = createVehicle ["B_GMG_01_high_F", [0,0], [], 0, "NONE"];
 _atPod3 allowdamage false;
 _atPod3 setdamage 0;
 _atPod3 setpos [(_centerPos select 0)+7, (_centerPos select 1)+8];

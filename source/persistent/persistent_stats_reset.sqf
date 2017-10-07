@@ -14,8 +14,8 @@ saveProfileNamespace; // sauvegarde le profil
 closeDialog 0;
 
 while {true} do {
-hintSilent "Please, restart the mission for the changes to be fully effective.";
-sleep 3;
+	hintSilent "Please, restart the mission for the changes to be fully effective.";
+	sleep 3;
 };
 
 

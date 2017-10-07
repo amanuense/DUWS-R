@@ -84,7 +84,7 @@ class CfgCommunicationMenu
     {
         text = "Establish FOB (10 CP)"; // Text displayed in the menu and in a notification
         submenu = ""; // Submenu opened upon activation
-        expression = "_null = [getpos player, 500] execVM 'support\fob.sqf'"; 
+        expression = "_null = [getPosWorld player, 500] execVM 'support\fob.sqf'"; 
         icon = "\a3\ui_f\data\gui\cfg\hints\Head_ca.paa";
         cursor = ""; // Custom cursor displayed when the item is selected
         enable = "1"; // Simple expression condition for enabling the item
@@ -94,7 +94,7 @@ class CfgCommunicationMenu
     {
         text = "Helicopter taxi(1 CP)"; // Text displayed in the menu and in a notification
         submenu = ""; // Submenu opened upon activation
-        expression = "_nill = [getpos player,50] execVM 'support\taxi\helotaxi.sqf'"; 
+        expression = "_nill = [getPosWorld player,50] execVM 'support\taxi\helotaxi.sqf'"; 
         icon = "\a3\ui_f\data\gui\cfg\hints\TakeOff_ca.paa";
         cursor = ""; // Custom cursor displayed when the item is selected
         enable = "1"; // Simple expression condition for enabling the item
@@ -114,7 +114,7 @@ class CfgCommunicationMenu
     {
         text = "Boat taxi (1 CP)"; // Text displayed in the menu and in a notification
         submenu = ""; // Submenu opened upon activation
-        expression = "_null = [getpos player,10] execVM 'support\taxi\boattaxi.sqf'"; 
+        expression = "_null = [getPosWorld player,10] execVM 'support\taxi\boattaxi.sqf'"; 
         icon = "\a3\ui_f\data\gui\cfg\hints\BasicDive_ca.paa";
         cursor = ""; // Custom cursor displayed when the item is selected
         enable = "1"; // Simple expression condition for enabling the item

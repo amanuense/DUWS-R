@@ -7,7 +7,7 @@ _arrayOfYellowUnits = [];
     }
 } forEach units group player;
 
-if (count _arrayOfYellowUnits<1) exitWith {hint "No units assigned to Yellow team"};
+if (_arrayOfYellowUnits isEqualTo []) exitWith {hint "No units assigned to Yellow team"};
 
 _newGroup = createGroup WEST;
 _arrayOfYellowUnits join _newGroup; 

@@ -2,7 +2,7 @@ _index = lbCurSel 2100;
 
 _skill = (blufor_ai_skill select 0)+0.2;
 _skillSF = (blufor_ai_skill select 0)+0.5;
-_spawnpos = [(getpos hq_blu1 select 0)-8, (getpos hq_blu1 select 1)-3.5];
+_spawnpos = [(getPosWorld hq_blu1 select 0)-8, (getPosWorld hq_blu1 select 1)-3.5];
 
 switch (_index) do {
     case 0: {

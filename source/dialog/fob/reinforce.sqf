@@ -8,7 +8,7 @@ _listREINF = [];
 _index = -1;
 _listREINF = [];
 {
-    _array_of_fobs_list = _array_of_fobs_list + [[getpos _x]]; // add the FOB (pos) into a nested array
+    _array_of_fobs_list = _array_of_fobs_list + [[getPosWorld _x]]; // add the FOB (pos) into a nested array
 
     _index = _index + 1;
     _array_of_fobs_list_selected = _array_of_fobs_list select _index; // select the current array inside _array_of_fobs_list
@@ -32,7 +32,7 @@ for "_timer" from 10 to 1 step -1 do {
 };
 
 _selectedGroup = hcSelected player;
-if (count _selectedGroup<1) exitWith {hint "You don't have any High Command squad selected"};
+if (_selectedGroup isEqualTo []) exitWith {hint "You don't have any High Command squad selected"};
 if (count _selectedGroup>1) exitWith {hint "You must select only 1 squad"};
 
 _group = _selectedGroup select 0;

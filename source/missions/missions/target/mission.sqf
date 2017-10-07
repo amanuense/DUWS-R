@@ -26,25 +26,27 @@ str(_markername2) setMarkerAlpha 0.5;
 
 // CREATE PATROLS
 sleep 1;
-[_missionpos, 15] execvm "createoppatrol.sqf"; // <-- around target
-[_randompos, _radius] execvm "createoppatrol.sqf";
-[_randompos, _radius] execvm "createoppatrol.sqf";
-[_randompos, _radius] execvm "createopteam.sqf";
-"O_MRAP_02_F" createVehicle ([(_missionpos select 0)+(random 10),(_missionpos select 1)+(random 10)]);
-
+if(!debugmode) then {
+	[_missionpos, 15] execvm "support\createoppatrol.sqf"; // <-- around target
+	[_randompos, _radius] execvm "support\createoppatrol.sqf";
+	[_randompos, _radius] execvm "support\createoppatrol.sqf";
+	[_randompos, _radius] execvm "support\createopteam.sqf";
+	"O_MRAP_02_F" createVehicle ([(_missionpos select 0)+(random 10),(_missionpos select 1)+(random 10)]);
+} else {
+	diag_log format ["target mission.sqf debug mode"];
+};
 _group = createGroup east;
 _target = _group createUnit ["O_officer_F", _missionpos, [], 0, "FORM"]; 
 _unit = _group createUnit ["O_soldier_F", _missionpos, [], 0, "FORM"];
 _unit = _group createUnit ["O_soldier_F", _missionpos, [], 0, "FORM"];
 
 // TASK AND NOTIFICATION
-//_taskhandle = player createSimpleTask ["taskTarget"];
-//_taskhandle setSimpleTaskDescription ["A high enemy target has been spotted somewhere in this location. Hunt him down.",_mission_name,""];
-//_taskhandle setSimpleTaskDestination (getMarkerPos str(_markername));
-[west, "_taskhandle", ["taskDestroy.", "A high enemy target has been spotted somewhere in this location. Hunt him down.", "(getMarkerPos str(_markername)"], objNull, true] call BIS_fnc_taskCreate; 
+_taskhandle = player createSimpleTask ["taskTarget"];
+_taskhandle setSimpleTaskDescription ["A high enemy target has been spotted somewhere in this location. Hunt him down.",_mission_name,""];
+_taskhandle setSimpleTaskDestination (getMarkerPos str(_markername));
 
 if (!ismultiplayer) then {
-    execVM "utilities\autoSave.sqf";
+    execVM "misc\autoSave.sqf.sqf";
 };
 
 ["TaskAssigned",["",_mission_name]] call bis_fnc_showNotification;
@@ -55,24 +57,11 @@ waitUntil {sleep 2; !alive _target};  // MISSION COMPLETED --
 deleteMarker str(_markername2);
 deleteMarker str(_markername);
 
-//player removeSimpleTask _taskhandle;
-[["_taskhandle", "WEST"],"BIS_fnc_deleteTask", true, true] call BIS_fnc_MP;
+player removeSimpleTask _taskhandle;
 
 sleep 1;
 
 // Give cookies  (bonus & notifications)
-reward = (20 * cp_reward_multiplier);
-["TaskSucceeded",["",_mission_name]] call bis_fnc_showNotification;
-["cpaddedmission",[reward]] call bis_fnc_showNotification;
-WARCOM_blufor_ap = WARCOM_blufor_ap + 20;
-missions_success = missions_success + 1;
-commandpointsblu1 = commandpointsblu1 + reward;
-opfor_ap = opfor_ap - 20;
-publicVariable "commandpointsblu1";
-publicVariable "WARCOM_blufor_ap";
-finishedMissionsNumber = finishedMissionsNumber + 1;
-publicVariable "finishedMissionsNumber";
-_operHandler = execVM "dialog\operative\operative_mission_complete.sqf";  
+[20, _mission_name ] execVM "missions\mission_score.sqf";
 
-// ADD PERSISTENT STAT
-_addmission = [] execVM "persistent\persistent_stats_missions_total.sqf";
+

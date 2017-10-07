@@ -16,13 +16,11 @@ publicVariable "zoneundercontrolblu";
 WARCOM_zones_controled_by_BLUFOR = WARCOM_zones_controled_by_BLUFOR + [_triggerPos];
 
 // REMOVE A ZONE FROM OPFOR CONTROL
-_index = 0;
 {
-if ((_x select 0 == _triggerPos select 0) && (_x select 1 == _triggerPos select 1) && (_x select 2 == _triggerPos select 2)) exitWith {
-WARCOM_zones_controled_by_OPFOR set [_index,-1];
-WARCOM_zones_controled_by_OPFOR = WARCOM_zones_controled_by_OPFOR - [-1];
-}; 
-_index = _index + 1;
+	if ((_x select 0 == _triggerPos select 0) && (_x select 1 == _triggerPos select 1) && (_x select 2 == _triggerPos select 2)) exitWith {
+	WARCOM_zones_controled_by_OPFOR set [_forEachIndex,-1];
+	WARCOM_zones_controled_by_OPFOR = WARCOM_zones_controled_by_OPFOR - [-1];
+	};
 } forEach WARCOM_zones_controled_by_OPFOR;
 
 
@@ -40,7 +38,7 @@ str(_markername) setMarkerColor "ColorGreen";
 // MODIFY MARKER ELLIPSE
 str(_markername2) setMarkerColor "ColorGreen";
 
-if (hasInterface) then {
+if (isServer) then {
 commandpointsblu1 = commandpointsblu1 + (_points/2); 
 publicVariable "commandpointsblu1"; 
 };

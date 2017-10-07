@@ -1,6 +1,6 @@
 _target = _this select 0;
 
-_lz = getpos _target;
+_lz = getPosWorld _target;
 
 if (commandpointsblu1<25) exitWith  
 {

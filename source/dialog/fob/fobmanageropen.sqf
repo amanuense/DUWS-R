@@ -1,4 +1,4 @@
-if (count Array_of_FOBname < 1) exitWith {hint "You must have at least one FOB to access the FOB manager"};
+if (Array_of_FOBname isEqualTo []) exitWith {hint "You must have at least one FOB to access the FOB manager"};
 
 _handle = createDialog "fob_mng_dialog";
 waitUntil {dialog};
@@ -10,7 +10,7 @@ _listFT = [];
 // FAST TRAVEL LIST BEGIN - -
 _index = -1;
 {
-    _array_of_fobs_list = _array_of_fobs_list + [[getpos _x]]; // add the FOB (pos) into a nested array
+    _array_of_fobs_list = _array_of_fobs_list + [[getPosWorld _x]]; // add the FOB (pos) into a nested array
 
     _index = _index + 1;
     _array_of_fobs_list_selected = _array_of_fobs_list select _index; // select the current array inside _array_of_fobs_list
@@ -23,7 +23,7 @@ _index = -1;
 
 //// CREATE THE ARRAY OF FOBS w/ POSITION -- END
 // add the base
-_hqpos = getpos hq_blu1;
+_hqpos = getPosWorld hq_blu1;
 _listFT = _listFT + [[_hqpos,"Main base"]];
 
 if (enable_fast_travel) then {  
@@ -45,7 +45,7 @@ else
 _index = -1;
 _listREINF = [];
 {
-    _array_of_fobs_list = _array_of_fobs_list + [[getpos _x]]; // add the FOB (pos) into a nested array
+    _array_of_fobs_list = _array_of_fobs_list + [[getPosWorld _x]]; // add the FOB (pos) into a nested array
 
     _index = _index + 1;
     _array_of_fobs_list_selected = _array_of_fobs_list select _index; // select the current array inside _array_of_fobs_list

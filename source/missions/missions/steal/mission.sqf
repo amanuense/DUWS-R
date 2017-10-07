@@ -3,7 +3,7 @@ _MissionPos = _this select 0;
 _radius = 200;
 _randompos = [(_missionpos select 0)+(random _radius)-(random _radius), (_missionpos select 1)+(random _radius)-(random _radius)];
 
-_initpos = getpos hq_blu1;
+_initpos = getPosWorld hq_blu1;
 
 // CREATE NAME
 _mission_name = MissionNameCase1;
@@ -44,22 +44,25 @@ _box3 setdir 180;
 
 
 // TASK AND NOTIFICATION
-//_taskhandle = player createSimpleTask ["taskSteal"];
-//_taskhandle setSimpleTaskDescription ["An enemy truck full of supplies has been spotted in the area. Find it and bring it back to the base in one piece.",_mission_name,""];
-//_taskhandle setSimpleTaskDestination (getMarkerPos str(_markername));
-[west, "_taskhandle", ["taskSteal.", "An enemy truck full of supplies has been spotted in the area. Find it and bring it back to the base in one piece.", "(getMarkerPos str(_markername)"], objNull, true] call BIS_fnc_taskCreate; 
+_taskhandle = player createSimpleTask ["taskSteal"];
+_taskhandle setSimpleTaskDescription ["An enemy truck full of supplies has been spotted in the area. Find it and bring it back to the base in one piece.",_mission_name,""];
+_taskhandle setSimpleTaskDestination (getMarkerPos str(_markername));
 
 if (!ismultiplayer) then {
-    execVM "utilities\autoSave.sqf";
+    execVM "misc\autoSave.sqf.sqf";
 };
 
 ["TaskAssigned",["",_mission_name]] call bis_fnc_showNotification;
 
 // CREATE PATROLS
 sleep 1;
-[_missionpos, 15] execvm "createoppatrol.sqf"; // <-- around target
-[_randompos, _radius] execvm "createoppatrol.sqf";
-[_randompos, _radius] execvm "createopteam.sqf";
+if(!debugmode) then {
+	[_missionpos, 15] execvm "support\createoppatrol.sqf"; // <-- around target
+	[_randompos, _radius] execvm "support\createoppatrol.sqf";
+	[_randompos, _radius] execvm "support\createopteam.sqf";
+} else {
+	diag_log format ["steal mission.sqf debug mode"];
+};
 
 _group = createGroup east;
 _unit = _group createUnit ["O_Soldier_SL_F", _missionpos, [], 0, "FORM"]; 
@@ -74,32 +77,16 @@ waitUntil {sleep 2; ((getdammage _truck1)>0.95 OR (_truck1 distance _initpos)<50
 deleteMarker str(_markername2);
 deleteMarker str(_markername);
 
-//player removeSimpleTask _taskhandle;
-[["_taskhandle", "WEST"],"BIS_fnc_deleteTask", true, true] call BIS_fnc_MP;
+player removeSimpleTask _taskhandle;
 
 if (getdammage _truck1>0.95) exitWith {
     ["TaskFailed",["","The enemy convoy is destroyed"]] call bis_fnc_showNotification;
 };
 
 // IF THE MISSION IS COMPLETE
-hint "Unloading the truck...";
- 
+hint "Unloading the truck..."; 
 // Give cookies  (bonus & notifications)
-reward = (25 * cp_reward_multiplier);
-["TaskSucceeded",["",_mission_name]] call bis_fnc_showNotification;
-["cpaddedmission",[reward]] call bis_fnc_showNotification;
-missions_success = missions_success + 1;
-commandpointsblu1 = commandpointsblu1 + reward;
-WARCOM_blufor_ap = WARCOM_blufor_ap + 25;
-opfor_ap = opfor_ap - 25;
-publicVariable "commandpointsblu1";
-publicVariable "WARCOM_blufor_ap";
-finishedMissionsNumber = finishedMissionsNumber + 1;
-publicVariable "finishedMissionsNumber";
-_operHandler = execVM "dialog\operative\operative_mission_complete.sqf"; 
-
-// ADD PERSISTENT STAT
-_addmission = [] execVM "persistent\persistent_stats_missions_total.sqf";
+[25, _mission_name ] execVM "missions\mission_score.sqf";
 
 sleep 2;
 deleteVehicle _box3;

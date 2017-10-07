@@ -4,6 +4,8 @@ _object = _this select 0;
 _fob = (_this select 3) select 1;
 aliveAllUnits = {alive _x} count allunits;
 
+diag_log format["fortifyFOB.sqf"];
+
 if (commandpointsblu1 < 4) exitWith {hint "You don't have enough Command Points"};
 commandpointsblu1 = commandpointsblu1 - 4;
 publicvariable "commandpointsblu1";

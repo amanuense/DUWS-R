@@ -14,8 +14,7 @@ private "_task";
 _taskgeneratedName = format ["rescue%1%2",round(_MissionPos select 0),round(_Missionpos select 1)]; // generate taskname/variable name
 call compile format["_task = %1",_taskgeneratedname]; // recall variable and inject it into handle
 
-//player removeSimpleTask _task;
-[["_task", "WEST"],"BIS_fnc_deleteTask", true, true] call BIS_fnc_MP;
+player removeSimpleTask _task;
 
 // IF SOLDIERS DEAD
 if (!(alive _sol1) && !(alive _sol2) && !(alive _sol3)) exitWith {
@@ -35,17 +34,4 @@ titleText ["Thanks for the rescue, we'll be fighting with you from now on, lead 
 sleep 5;
 
 // Give cookies  (bonus & notifications)
-reward = (10 * cp_reward_multiplier);
-finishedMissionsNumber = finishedMissionsNumber + 1;
-publicVariable "finishedMissionsNumber";
-["TaskSucceeded",["","Rescue the friendly troops"]] call bis_fnc_showNotification;
-["cpaddedmission",[reward]] call bis_fnc_showNotification;
-missions_success = missions_success + 1;
-commandpointsblu1 = commandpointsblu1 + reward;
-WARCOM_blufor_ap = WARCOM_blufor_ap + 15;
-publicVariable "commandpointsblu1";
-publicVariable "WARCOM_blufor_ap";
-_operHandler = execVM "dialog\operative\operative_mission_complete.sqf"; 
-
-// ADD PERSISTENT STAT
-_addmission = [] execVM "persistent\persistent_stats_missions_total.sqf";
+[10, _mission_name ] execVM "missions\mission_score.sqf";

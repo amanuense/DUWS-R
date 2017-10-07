@@ -4,7 +4,7 @@ DUWS_dynmusic_firednear = {
 player removeEventHandler ["FiredNear", dynamic_music_EH_firednear];
 
 // check if opfor is near
-_trg=createTrigger["EmptyDetector",getpos player];
+_trg=createTrigger["EmptyDetector",getPosWorld player];
 _trg setTriggerArea[150,150,0,false];
 _trg setTriggerActivation["EAST","PRESENT",false];
 _trg setTriggerStatements["this", "", ""];

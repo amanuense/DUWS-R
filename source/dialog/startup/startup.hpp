@@ -1,8 +1,10 @@
 // TODO: Localize text in source/dialog/startup/startup.hpp
+
 class startup_dialog
 {
     idd = -1;
     movingenable = false;
+    onLoad = "_nul = call startup_defaults_fn;"; //load defaults
     onUnload = "_nul = execVM ""dialog\startup\startup_closed.sqf"""; // UI event handler
 
     class controls

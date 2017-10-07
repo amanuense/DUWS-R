@@ -29,26 +29,42 @@ _tower setdamage 0.85;
 _tower setVectorUp [0,0,1];
 
 // TASK AND NOTIFICATION
-//OLD
-//_taskhandle = player createSimpleTask ["taskDestroy"];
-//_taskhandle setSimpleTaskDescription ["We have detected a large amount of enemy trasmissions coming from this area. This is probably caused by a radio tower used by the enemy forces on the island. Destroy the tower. Be sure to take some satchels, which you can find in the armory. Armory can be unlocked at the HQ.",_mission_name,""];
-//_taskhandle setSimpleTaskDestination (getMarkerPos str(_markername));
-//NEW
-//test1
-[west, "_taskhandle", ["taskDestroy.", "We have detected a large amount of enemy trasmissions coming from this area. This is probably caused by a radio tower used by the enemy forces on the island. Destroy the tower. Be sure to take some satchels, which you can find in the armory. Armory can be unlocked at the HQ.", "(getMarkerPos str(_markername)"], objNull, true] call BIS_fnc_taskCreate; 
 
+_taskhandle = player createSimpleTask ["taskDestroy"];
+_taskhandle setSimpleTaskDescription ["We have detected a large amount of enemy trasmissions coming from this area. This is probably caused by a radio tower used by the enemy forces on the island. Destroy the tower. Be sure to take some satchels, which you can find in the armory. Armory can be unlocked at the HQ.",_mission_name,""];
+_taskhandle setSimpleTaskDestination (getMarkerPos str(_markername));
+
+/*
+Parameters:
+		0: BOOL or OBJECT or GROUP or SIDE or ARRAY - Task owner(s)
+		1: STRING or ARRAY - Task name or array in the format [task name, parent task name]
+		2: ARRAY or STRING - Task description in the format ["description", "title", "marker"] or CfgTaskDescriptions class
+		3: OBJECT or ARRAY or STRING - Task destination
+		4: BOOL or NUMBER or STRING - Task state (or true to set as current)
+		5: NUMBER - Task priority (when automatically selecting a new current task, higher priority is selected first)
+		6: BOOL - Show notification (default: true)
+		7: STRING - Task type as defined in the CfgTaskTypes
+		8: BOOL - Should the task being shared (default: false), if set to true, the assigned players are being counted
+
+*/
+//_tasktext = format ["We have detected a large amount of enemy trasmissions coming from this area. This is probably caused by a radio tower used by the enemy forces on the island. Destroy the tower. Be sure to take some satchels, which you can find in the armory. Armory can be unlocked at the HQ.",_mission_name];
+//[group player,"taskDestroy",[_tasktext,"Destroy",_markername],_randompos,true,1,true,"destroy",true] call BIS_fnc_taskCreate
 
 if (!ismultiplayer) then {
-    execVM "utilities\autoSave.sqf";
+    execVM "misc\autoSave.sqf.sqf";
 };
 
-["TaskAssigned",["",_mission_name]] call bis_fnc_showNotification;
-
 // CREATE PATROLS
+if(!debugmode) then {
+	[_missionpos, 15] execvm "support\createoppatrol.sqf"; // <-- around target
+	[_randompos, _radius] execvm "support\createoppatrol.sqf";
+	[_randompos, _radius] execvm "support\createopteam.sqf";
+} else {
+	diag_log format ["destroy mission.sqf debug mode"];
+};
 sleep 1;
-[_missionpos, 15] execvm "createoppatrol.sqf"; // <-- around target
-[_randompos, _radius] execvm "createoppatrol.sqf";
-[_randompos, _radius] execvm "createopteam.sqf";
+
+["TaskAssigned",["",_mission_name]] call bis_fnc_showNotification;
 
 // MISSION COMPLETED --   ATTENDRE QUE LA TOUR SOIT KO
 waitUntil {sleep 1; !alive _tower};  
@@ -56,26 +72,7 @@ waitUntil {sleep 1; !alive _tower};
 // remove markers
 deleteMarker str(_markername2);
 deleteMarker str(_markername);
-
-//OLD
-//player removeSimpleTask _taskhandle;
-
-//NEW
-[["_taskhandle", "WEST"],"BIS_fnc_deleteTask", true, true] call BIS_fnc_MP; 
+player removeSimpleTask _taskhandle;
  
-// Give cookies  (bonus & notifications)
-reward = (30 * cp_reward_multiplier);
-["TaskSucceeded",["",_mission_name]] call bis_fnc_showNotification;
-["cpaddedmission",[reward]] call bis_fnc_showNotification;
-commandpointsblu1 = commandpointsblu1 + reward;
-missions_success = missions_success + 1;
-WARCOM_blufor_ap = WARCOM_blufor_ap + 30;
-opfor_ap = opfor_ap - 30;
-finishedMissionsNumber = finishedMissionsNumber + 1;
-publicVariable "finishedMissionsNumber";
-publicVariable "commandpointsblu1";
-publicVariable "WARCOM_blufor_ap";
-_operHandler = execVM "dialog\operative\operative_mission_complete.sqf"; 
-
-// ADD PERSISTENT STAT
-_addmission = [] execVM "persistent\persistent_stats_missions_total.sqf";
+ // Give cookies  (bonus & notifications)
+[30, _mission_name ] execVM "missions\mission_score.sqf";

@@ -1,0 +1,74 @@
+Before anything else I want to thank Kibot and DUWS-R team for doin the ground work, I just added some things and removed other things. 
+ 
+required MODs: None 
+plan to support MODs: hahaha... oh wait you are serious, let me laugh harder. HAHAHAHA 
+ 
+what is this, well it is pretty much the DUWS-R the code has reached a point where it is somewhat different from the DUWS-R implementation on github.
+ 
+what is different? 
+-Added Dedicated server support 
+-changed defaults. 
+-code cleanup (I write code for a living I see code that needs cleaning and I shriek) 
+-revamped algorithm to find the center of the map. (new file is 11 lines including 4 lines of comments and empty lines) 
+-removed VAS. (I don't like it)
+-improved logging (required for proper debugging) 
+-removed old revive system, using Arma's revive system since I consider it nicer.
+-added earplugs.
+-objects spawn on a safer way (no more exploding vehicles)
+-added marker for newly spawned vehicles, marker will dissapear after 60 seconds.
+ 
+sooo dedicated server... yes, I added supported to dedicated server with some caveats 
+1) the server MUST be persistent. 
+2) make sure to add the name of the terrain if you want it to appear there. 
+3) saving is disabled, this is a limitation from BI, this is the reason to have a persistent server. 
+4) dedicated uses defaults, might change it later if you want to change the defaults unpack the PBO and change startup_defaults.sqf. takes literally a couple of minutes. 
+5) Headless client shows on the server but it is not yet supported. 
+6) for side missions 
+   a)only team leaders can request and complete side missions
+ 
+ 
+what is broken: 
+-lots of things 
+-due persistence some information is saved as part of the profile if you restart the mission the number of captured zones will be kept on the user profile causing the mission to end prematurely. just initialize again and reset your stats.
+ 
+What is planned 
+-support for headless client for dedicated server (performance baby) in specific to control opfor. 
+-add extra missions. 
+-add options to configure respawn menu. (currently crashes dedicated server)
+-currently the stats regarding zones captured is stored as part of the client profile, that is ok when hosting a server or when playing single player but it's a problem for dedicated, a single user with a profile with more captured zones than the server will cause the mission to end. 
+ 
+ 
+Issues? 
+You can report any issue on the comments, if I get the time I'll take a look, make sure to save server AND client logs.
+
+
+
+changelog
+-------------------------------------------------------------------------------
+-fixed issue with FOB options appearing more than once.
+-------------------------------------------------------------------------------
+-fixed problem with vehicle spawn causing explosions due bad spawn position.
+-set player spawn position outside HQ on a safe location. this change might Be reverted later.
+-fixed FOB menus
+-player spawns instantly and it is teleported to the main base once it is set.
+-currently #include "\a3\Functions_F\Params\paramRevive.hpp" is disabled on params.hpp, works on standalone and player hosted server but crashes dedicated server.
+-------------------------------------------------------------------------------
+-fixed GPS marking not removed after client disconnected.
+-added earplugs, this is useful when riding in vehicles.
+-fixed issue where in SP, player squad will spawn in water (now it will not spawn at all)
+-several code optimizations to avoid duplicated code, this is required in order to finally solve locality issues.
+-when rescuing the pilot if the pilot is on a vehicle when entering the mainbase, the pilot should now leave the vehicle when it stops. this is still being tested so be careful
+
+-------------------------------------------------------------------------------
+-fixed issue with command points dissapearing when mission is finished, hurray!!
+-fixed issue with armory not working on certain conditions.
+-now all FOBs use the same function to obtain the fob actions (used to be three different blocks of code)
+-finishing other's leader mission now works (assumed the leader didn't disconnect)
+-Tweaked earplugs
+
+-------------------------------------------------------------------------------
+-fixed dialog issue!!
+-performance tweaks
+-added a marker to the newly spawned vehicles (marker will be deleted after 60 seconds).
+-fixed issue with artillery supports not called.
+

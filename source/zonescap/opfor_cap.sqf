@@ -9,13 +9,11 @@ amount_zones_captured = amount_zones_captured - 1;
 ["us_lostcontrol",[_place]] call bis_fnc_showNotification;
 
 // remove the zone of list of zones under blu control
-_index = 0;
 {
-if ((_x select 0 == _triggerPos select 0) && (_x select 1 == _triggerPos select 1) && (_x select 2 == _triggerPos select 2)) exitWith {
-WARCOM_zones_controled_by_BLUFOR set [_index,-1];
-WARCOM_zones_controled_by_BLUFOR = WARCOM_zones_controled_by_BLUFOR - [-1];
-}; 
-_index = _index + 1;
+	if ((_x select 0 == _triggerPos select 0) && (_x select 1 == _triggerPos select 1) && (_x select 2 == _triggerPos select 2)) exitWith {
+	WARCOM_zones_controled_by_BLUFOR set [_forEachIndex,-1];
+	WARCOM_zones_controled_by_BLUFOR = WARCOM_zones_controled_by_BLUFOR - [-1];
+	}; 
 } forEach WARCOM_zones_controled_by_BLUFOR;
 
 // TELL THE ZONE IS UNDER OPF CONTROL

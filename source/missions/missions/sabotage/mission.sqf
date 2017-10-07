@@ -30,24 +30,25 @@ _tower addaction ["Sabotage", "missions\missions\sabotage\success.sqf",[_mission
 // TASK AND NOTIFICATION
 _VARtaskgeneratedName = format["tsksabot%1%2",round(_MissionPos select 0),round(_Missionpos select 1)]; // generate variable name for task
 
-//_taskhandle = player createSimpleTask ["taskSabot"];
-//_taskhandle setSimpleTaskDescription ["The enemy is using a power supply somewhere in this area. We need you to find it and sabotage it. It will allow us to have a bit of better intel on our enemies.",_mission_name,""];
-//_taskhandle setSimpleTaskDestination (getMarkerPos str(_markername));
-
-[west, "_taskhandle", ["taskSabot.", "The enemy is using a power supply somewhere in this area. We need you to find it and sabotage it. It will allow us to have a bit of better intel on our enemies."], objNull, true] call BIS_fnc_taskCreate; 
+_taskhandle = player createSimpleTask ["taskSabot"];
+_taskhandle setSimpleTaskDescription ["The enemy is using a power supply somewhere in this area. We need you to find it and sabotage it. It will allow us to have a bit of better intel on our enemies.",_mission_name,""];
+_taskhandle setSimpleTaskDestination (getMarkerPos str(_markername));
 
 if (!ismultiplayer) then {
-    execVM "utilities\autoSave.sqf";
+    execVM "misc\autoSave.sqf.sqf";
 };
 
 ["TaskAssigned",["",_mission_name]] call bis_fnc_showNotification;
 
 call compile format ["%1 = _taskhandle",_VARtaskgeneratedName]; // create variable using the generated name so we can access it with the action
 
+
+if(debugmode) exitWith { diag_log format ["sabotage mission.sqf debug mode"]; };
 // CREATE OPFOR PATROLS
+
 sleep 1;
-[_randompos, _radius] execvm "createoppatrol.sqf";
-[_randompos, _radius] execvm "createoppatrol.sqf";
-[_missionpos, 15] execvm "createoppatrol.sqf"; // <-- around target
+[_randompos, _radius] execvm "support\createoppatrol.sqf";
+[_randompos, _radius] execvm "support\createoppatrol.sqf";
+[_missionpos, 15] execvm "support\createoppatrol.sqf"; // <-- around target
 sleep 10;
-[_missionpos, 15] execvm "createoppatrol.sqf"; // <-- around target
+[_missionpos, 15] execvm "support\createoppatrol.sqf"; // <-- around target

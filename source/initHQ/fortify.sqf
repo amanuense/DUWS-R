@@ -1,115 +1,72 @@
 _centerPos = _this select 0;
 _hq = _this select 1;
 
+diag_log format["fortify.sqf"];
+
+
+_forty_spawn = {
+	_name = _this select 0;
+	_center = _this select 1;
+	_offset = _this select 2;
+
+	_newx = (_center select 0) + (_offset select 0);
+	_newy = (_center select 1) + (_offset select 1);
+	_newz = (_offset select 2);
+
+	_new = createVehicle [_name, [0,0,0], [], 0, "NONE"];
+	_new allowdamage false;
+	_new setpos [_newx, _newy, _newz];
+	_new setdamage 0;
+	_new
+};
+
 _groupGuard = createGroup WEST;
 
-// AA on the roof
-_aaPod = createVehicle ["B_static_AA_F", [0,0,0], [], 0, "NONE"];
-_aaPod allowdamage false;
-_aaPod setdamage 0;
-_aaPod setpos [_centerPos select 0, _centerPos select 1,(_centerPos select 2)+3.109];
-
+_aaPod = ["B_static_AA_F",_centerPos,[0,0,3.109]] call _forty_spawn;
 _hqGuard1 = _groupGuard createUnit ["B_Soldier_F", _centerPos, [], 0, "FORM"]; 
 _hqGuard1 moveinGunner _aaPod;
 
 // GMG
-_gl1Pod = createVehicle ["B_GMG_01_high_F", [0,0,0], [], 0, "NONE"];
-_gl1Pod allowdamage false;
-_gl1Pod setdamage 0;
-_gl1Pod setpos [(_centerPos select 0)-7, (_centerPos select 1)+5.5];
-
+_gl1Pod = ["B_GMG_01_high_F",_centerPos,[-7,6,0]] call _forty_spawn;
 _hqGuard1 = _groupGuard createUnit ["B_Soldier_F", _centerPos, [], 0, "FORM"]; 
 _hqGuard1 moveinGunner _gl1Pod;
-
-// AT
-_atPod1 = createVehicle ["B_static_AT_F", [0,0,0], [], 0, "NONE"];
-_atPod1 setpos [(_centerPos select 0)-7, (_centerPos select 1)-8];
-_atPod1 allowdamage false;
-_atPod1 setdamage 0;
-_atPod1 setdir 215;
-
-_hqGuard1 = _groupGuard createUnit ["B_Soldier_F", _centerPos, [], 0, "FORM"]; 
-_hqGuard1 moveinGunner _atPod1;
-
-// HMG
-_atPod2 = createVehicle ["B_HMG_01_high_F", [0,0,0], [], 0, "NONE"];
-_atPod2 allowdamage false;
-_atPod2 setdamage 0;
-_atPod2 setpos [(_centerPos select 0)+8, (_centerPos select 1)-7];
-
-_hqGuard1 = _groupGuard createUnit ["B_Soldier_F", _centerPos, [], 0, "FORM"]; 
-_hqGuard1 moveinGunner _atPod2;
+_gl1Pod setDir( _centerPos getDir getPosWorld _gl1Pod); //try to situate this guy radially
 
 // GMG
-_atPod3 = createVehicle ["B_GMG_01_high_F", [0,0,0], [], 0, "NONE"];
-_atPod3 allowdamage false;
-_atPod3 setdamage 0;
-_atPod3 setpos [(_centerPos select 0)+7, (_centerPos select 1)+8];
-
+_atPod3 = ["B_GMG_01_high_F",_centerPos,[7,8,0]] call _forty_spawn;
 _hqGuard1 = _groupGuard createUnit ["B_Soldier_F", _centerPos, [], 0, "FORM"]; 
 _hqGuard1 moveinGunner _atPod3;
+_atPod3 setDir( _centerPos getDir getPosWorld _atPod3); //try to situate this guy radially
+
+// AT
+_atPod1 = ["B_static_AT_F",_centerPos,[-7,-8,0]] call _forty_spawn;
+_hqGuard1 = _groupGuard createUnit ["B_Soldier_F", _centerPos, [], 0, "FORM"]; 
+_hqGuard1 moveinGunner _atPod1;
+_atPod1 setDir( _centerPos getDir getPosWorld _atPod1); //try to situate this guy radially
+
+// HMG
+_atPod2 = ["B_HMG_01_high_F",_centerPos,[8,-7,0]] call _forty_spawn;
+_hqGuard1 = _groupGuard createUnit ["B_Soldier_F", _centerPos, [], 0, "FORM"]; 
+_hqGuard1 moveinGunner _atPod2;
+_atPod2 setDir( _centerPos getDir getPosWorld _atPod2); //try to situate this guy radially
 
 // LIGHTS
-_light1 = createVehicle ["Land_Camping_Light_F", [0,0,0], [], 0, "NONE"];
-_light1 allowdamage false;
-_light1 setdamage 0;
-_light1 setpos [_centerPos select 0, _centerPos select 1];
+["Land_Camping_Light_F",_centerPos,[0,0,2]] call _forty_spawn;
+["Land_Camping_Light_F",_centerPos,[5.5,-5.5,0]] call _forty_spawn;
+["Land_Camping_Light_F",_centerPos,[-5.5,3.5,0]] call _forty_spawn;
+["Land_Camping_Light_F",_centerPos,[5.5,3.5,0]] call _forty_spawn;
+["Land_Camping_Light_F",_centerPos,[-5.5,-5.5,0]] call _forty_spawn;
+["Land_Camping_Light_F",_centerPos,[-2.75,-2.75,0]] call _forty_spawn;
+["Land_Camping_Light_F",_centerPos,[-2.75,2.75,0]] call _forty_spawn;
+["Land_Camping_Light_F",_centerPos,[2.75,2.75,0]] call _forty_spawn;
+["Land_Camping_Light_F",_centerPos,[-2.75,-2.75,1]] call _forty_spawn;
 
-_light2 = createVehicle ["Land_Camping_Light_F", [0,0,0], [], 0, "NONE"];
-_light2 allowdamage false;
-_light2 setdamage 0;
-_light2 setpos [(_centerPos select 0)+5.5, (_centerPos select 1)-5.5];
-
-_light3 = createVehicle ["Land_Camping_Light_F", [0,0,0], [], 0, "NONE"];
-_light3 allowdamage false;
-_light3 setdamage 0;
-_light3 setpos [(_centerPos select 0)-5.5, (_centerPos select 1)+3.5];
-
-_light4 = createVehicle ["Land_Camping_Light_F", [0,0,0], [], 0, "NONE"];
-_light4 allowdamage false;
-_light4 setdamage 0;
-_light4 setpos [(_centerPos select 0)+5.5, (_centerPos select 1)+3.5];
-
-_light5 = createVehicle ["Land_Camping_Light_F", [0,0,0], [], 0, "NONE"];
-_light5 allowdamage false;
-_light5 setdamage 0;
-_light5 setpos [(_centerPos select 0)-5.5, (_centerPos select 1)-5.5];
-
-_light6 = createVehicle ["Land_Camping_Light_F", [0,0,0], [], 0, "NONE"];
-_light6 allowdamage false;
-_light6 setdamage 0;
-_light6 setpos [(_centerPos select 0)+2.75, (_centerPos select 1)-2.75];
-
-_light7 = createVehicle ["Land_Camping_Light_F", [0,0,0], [], 0, "NONE"];
-_light7 allowdamage false;
-_light7 setdamage 0;
-_light7 setpos [(_centerPos select 0)-2.75, (_centerPos select 1)+1.75];
-
-_light8 = createVehicle ["Land_Camping_Light_F", [0,0,0], [], 0, "NONE"];
-_light8 allowdamage false;
-_light8 setdamage 0;
-_light8 setpos [(_centerPos select 0)+2.75, (_centerPos select 1)+1.75];
-
-_light9 = createVehicle ["Land_Camping_Light_F", [0,0,0], [], 0, "NONE"];
-_light9 allowdamage false;
-_light9 setdamage 0;
-_light9 setpos [(_centerPos select 0)-2.75, (_centerPos select 1)-2.75];
-
-sleep 2;
+sleep 60;
 _atPod1 allowdamage true;
 _atPod2 allowdamage true;
 _atPod3 allowdamage true;
 _gl1Pod allowdamage true;
 _aaPod allowdamage true;
-_light1 allowdamage true;
-_light2 allowdamage true;
-_light3 allowdamage true;
-_light4 allowdamage true;
-_light5 allowdamage true;
-_light6 allowdamage true;
-_light7 allowdamage true;
-_light8 allowdamage true;
-_light9 allowdamage true;
 
 
 _hq addAction ["<t color='#ff0066'>Replace Defences (20CP)</t>", "initHQ\refortify.sqf", [_aaPod, _gl1Pod, _atPod1, _atPod2, _atPod3, _centerPos, _hq], 0, true, true, "", "_this == player"];

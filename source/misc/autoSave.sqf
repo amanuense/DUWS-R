@@ -1,5 +1,7 @@
 // Super simple auto-save script.
 enableSaving false;
 sleep 0.1;
-saveGame;
+if (!isDedicated) then {
+	saveGame;
+};
 enableSaving true;

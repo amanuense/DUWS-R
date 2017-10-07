@@ -37,10 +37,10 @@ deleteVehicle _trg;
             
             _duration = 60;
             while {_duration >=0} do {
-                 _trgplayer setpos getpos player;
+                 _trgplayer setpos getPosWorld player;
                  _ennemies = list _trgplayer;
                  
-                 if (count _ennemies>0) then {
+                 if !(_ennemies isEqualTo []) then {
                     titleText ["There's enemies around here...", "PLAIN DOWN"];
                     }
                     else

@@ -1,5 +1,5 @@
 // Cooldown les variables
-_cooldown = 1200;
+_cooldown = 600;
 _ability_name = "Field Surgery";
 _varname = "skill_activate_heal";
 _radio = "CHARLIE";
@@ -31,7 +31,7 @@ deleteVehicle _trg;
     sleep 4;
     player setdamage 0;
     /// ----   ABILITY IS ACTIVATED
-    titleText [format["%1 done\nCooldown: 20 minutes",_ability_name,_cooldown], "PLAIN DOWN"];
+    titleText [format["%1 done\nCooldown: 10 minutes",_ability_name,_cooldown], "PLAIN DOWN"];
     sleep _cooldown;
     titleText [format["%1 available",_ability_name], "PLAIN DOWN"];
     

@@ -18,7 +18,7 @@ if (true) then
 ///////////////////////
 // -- ADD THIS --  2 //
 ///////////////////////
-_centerObj = getpos _vehicle_0; 
+_centerObj = getPosWorld _vehicle_0; 
 _centerX = _centerObj select 0;
 _centerY = _centerObj select 1;
 deleteVehicle _vehicle_0;

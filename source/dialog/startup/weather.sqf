@@ -1,18 +1,18 @@
 //0 setFog [0.1, 0.09, 10]
-// 1ï¿½re valeur: --> INTENSITE BROUILLARD
-// 2ï¿½me valeur: rester entre 0.01(haut) et 0.1(bas)  --> hauteur brouillard
-// 3ï¿½me valeur: mieux vaut rester ï¿½ 10 --> hauteur de base
+// 1ère valeur: --> INTENSITE BROUILLARD
+// 2ème valeur: rester entre 0.01(haut) et 0.1(bas)  --> hauteur brouillard
+// 3ème valeur: mieux vaut rester à 10 --> hauteur de base
 
 //  fog
-// tropical --> intensitï¿½ (0.3 - 0.9) Hauteur totalement variable
-// mediter  --> intensitï¿½ (0.5 - 0.0)
-// tempï¿½rï¿½  --> intensitï¿½ (0.75 - 0.0)
-// tempï¿½rï¿½ froid  --> intensitï¿½ (0.75 - 0.0)
+// tropical --> intensité (0.3 - 0.9) Hauteur totalement variable
+// mediter  --> intensité (0.5 - 0.0)
+// tempéré  --> intensité (0.75 - 0.0)
+// tempéré froid  --> intensité (0.75 - 0.0)
 // aride 0
 
 // 0 setOvercast 0.9
-// tempï¿½rï¿½ 0.3 - 0.8
-// tempï¿½rï¿½ froid 0.4 - 0.8
+// tempéré 0.3 - 0.8
+// tempéré froid 0.4 - 0.8
 // tropical 0 - 1
 // medit 0 - 0.6
 // aride 0 - 0.3

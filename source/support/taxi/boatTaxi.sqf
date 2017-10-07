@@ -49,37 +49,37 @@ _wp = _helogroup addWaypoint [[_foundPickupPos select 0, (_foundPickupPos select
 _wp setWaypointType "MOVE";
 [_helogroup, 1] setWaypointCombatMode "BLUE";
 
-_fobname = [1] call compile preprocessFile "random_name.sqf";
+_fobname = [1] call compile preprocessFile "misc\random_name.sqf";
 
 _pilot sideChat format["This is %1, I'm approching your location for pick up, check your map. ETA 2 minutes.",_fobname];
 
 waitUntil {_foundpickuppos distance _helo < 350 or (getdammage _helo > 0.7 or !alive _pilot)}; // wait until the helo is near the lz
 // IF THE PILOT IS DEAD OR CHOPPA DOWN ******************
 if (getdammage _helo > 0.7 or !alive _pilot) exitWith {
-deleteMarker str(_markerpickup);
-hint format["%1 is too damaged to continue the mission",_fobname];
-// --- AJOUTER DE NOUVEAU LE SUPPORT
-sleep 15;
-_art = [player,"boat_taxi"] call BIS_fnc_addCommMenuItem;
+	deleteMarker str(_markerpickup);
+	hint format["%1 is too damaged to continue the mission",_fobname];
+	// --- AJOUTER DE NOUVEAU LE SUPPORT
+	sleep 15;
+	_art = [player,"boat_taxi"] call BIS_fnc_addCommMenuItem;
 }; 
 // ****************************************************
 
 _inVehCheck = true;
 while {_inVehCheck} do {
-waitUntil {sleep 0.1;taxiCanTakeOff or (getdammage _helo > 0.7 or !alive _pilot)}; // wait until the player has given a validpos
-if (getdammage _helo > 0.7 or !alive _pilot) exitWith {}; // get out of the loop if choopa is down
-// check if player is inside choppa
-if (vehicle player != _helo) then {taxiCanTakeOff = false; _pilot sidechat format["This is %1, get back in, I can't transport you're not inside the boat !",_fobname]; _helo addAction ["<t color='#00b7ff'>Give a location to the pilot</t>", "support\taxi\mapclickboat.sqf", "", 0, true, true, "", "vehicle _this == _target"];} else {_inVehCheck = false;};
+	waitUntil {sleep 0.1;taxiCanTakeOff or (getdammage _helo > 0.7 or !alive _pilot)}; // wait until the player has given a validpos
+	if (getdammage _helo > 0.7 or !alive _pilot) exitWith {}; // get out of the loop if choopa is down
+	// check if player is inside choppa
+	if (vehicle player != _helo) then {taxiCanTakeOff = false; _pilot sidechat format["This is %1, get back in, I can't transport you're not inside the boat !",_fobname]; _helo addAction ["<t color='#00b7ff'>Give a location to the pilot</t>", "support\taxi\mapclickboat.sqf", "", 0, true, true, "", "vehicle _this == _target"];} else {_inVehCheck = false;};
 };
 
 // IF THE PILOT IS DEAD OR CHOPPA DOWN  **************
 if (getdammage _helo > 0.7 or !alive _pilot) exitWith {
-deleteVehicle _helipad1;
-deleteMarker str(_markerpickup);
-hint format["%1 %2-%2 is too damaged to continue the mission",_fobname,_random1,_random2];
-sleep 15;
-_art = [player,"helo_taxi"] call BIS_fnc_addCommMenuItem;
-// --- AJOUTER DE NOUVEAU LE SUPPORT
+	deleteVehicle _helipad1;
+	deleteMarker str(_markerpickup);
+	hint format["%1 %2-%2 is too damaged to continue the mission",_fobname,_random1,_random2];
+	sleep 15;
+	_art = [player,"helo_taxi"] call BIS_fnc_addCommMenuItem;
+	// --- AJOUTER DE NOUVEAU LE SUPPORT
 }; 
 // *****************************
 
@@ -93,16 +93,16 @@ str(_markerpickup) setMarkerText "Drop point";
 
 
 
-_actualboatpos = getpos player;
+_actualboatpos = getPosWorld player;
 
 // IF THE PILOT IS DEAD OR CHOPPA DOWN  **************
 if (getdammage _helo > 0.7 or !alive _pilot) exitWith {
-_helo lock false;
-deleteMarker str(_markerpickup);
-hint format["%1 %2-%2 is too damaged to continue the mission",_fobname,_random1,_random2];
-// --- AJOUTER DE NOUVEAU LE SUPPORT
-sleep 15;
-_art = [player,"helo_taxi"] call BIS_fnc_addCommMenuItem;
+	_helo lock false;
+	deleteMarker str(_markerpickup);
+	hint format["%1 %2-%2 is too damaged to continue the mission",_fobname,_random1,_random2];
+	// --- AJOUTER DE NOUVEAU LE SUPPORT
+	sleep 15;
+	_art = [player,"helo_taxi"] call BIS_fnc_addCommMenuItem;
 }; 
 // *****************************
 
@@ -123,27 +123,27 @@ _helo lock false;
 waitUntil {ClickedTaxiPos distance _helo < 200  or (getdammage _helo > 0.7 or !alive _pilot)}; // wait until the helo is near the lz
 // IF THE PILOT IS DEAD OR CHOPPA DOWN  **************
 if (getdammage _helo > 0.7 or !alive _pilot) exitWith {
-deleteVehicle _helipad;
-_helo lock false;
-deleteMarker str(_markerpickup);
-hint format["%1 %2-%2 is too damaged to continue the mission",_fobname,_random1,_random2];
-// --- AJOUTER DE NOUVEAU LE SUPPORT
-sleep 15;
-_art = [player,"helo_taxi"] call BIS_fnc_addCommMenuItem;
+	deleteVehicle _helipad;
+	_helo lock false;
+	deleteMarker str(_markerpickup);
+	hint format["%1 %2-%2 is too damaged to continue the mission",_fobname,_random1,_random2];
+	// --- AJOUTER DE NOUVEAU LE SUPPORT
+	sleep 15;
+	_art = [player,"helo_taxi"] call BIS_fnc_addCommMenuItem;
 }; 
 // *****************************
 
 
 // time to move ppl out of the helo;
-waitUntil {(getpos _helo select 2 < 4 && _helo distance ClickedTaxiPos<20)  or (getdammage _helo > 0.7 or !alive _pilot)}; // wait until the helo is near the ground
+waitUntil {(getPosWorld _helo select 2 < 4 && _helo distance ClickedTaxiPos<20)  or (getdammage _helo > 0.7 or !alive _pilot)}; // wait until the helo is near the ground
 // IF THE PILOT IS DEAD OR CHOPPA DOWN  **************
 if (getdammage _helo > 0.7 or !alive _pilot) exitWith {
-deleteVehicle _helipad;
-_helo lock false;
-hint format["%1 %2-%2 is too damaged to continue the mission",_fobname,_random1,_random2];
-// --- AJOUTER DE NOUVEAU LE SUPPORT
-sleep 15;
-_art = [player,"helo_taxi"] call BIS_fnc_addCommMenuItem;
+	deleteVehicle _helipad;
+	_helo lock false;
+	hint format["%1 %2-%2 is too damaged to continue the mission",_fobname,_random1,_random2];
+	// --- AJOUTER DE NOUVEAU LE SUPPORT
+	sleep 15;
+	_art = [player,"helo_taxi"] call BIS_fnc_addCommMenuItem;
 }; 
 // *****************************
 titleText ["Driver: We've arrived at the drop point", "PLAIN DOWN"];
@@ -160,10 +160,10 @@ deleteMarker str(_markerpickup);
 waitUntil {_helo distance player>100 or (getdammage _helo > 0.7 or !alive _pilot)}; // wait until the helo is near the ground
 // IF THE PILOT IS DEAD OR CHOPPA DOWN  **************
 if (getdammage _helo > 0.7 or !alive _pilot) exitWith {
-hint format["%1 %2-%2 is too damaged to continue the mission",_fobname,_random1,_random2];
-// --- AJOUTER DE NOUVEAU LE SUPPORT
-sleep 15;
-_art = [player,"helo_taxi"] call BIS_fnc_addCommMenuItem;
+	hint format["%1 %2-%2 is too damaged to continue the mission",_fobname,_random1,_random2];
+	// --- AJOUTER DE NOUVEAU LE SUPPORT
+	sleep 15;
+	_art = [player,"helo_taxi"] call BIS_fnc_addCommMenuItem;
 }; 
 // *****************************
 

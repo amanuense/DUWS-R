@@ -1,7 +1,7 @@
 _radius = _this select 0;
 _diff = _this select 1;
 
-[["The zones are being generated<br/>Please wait for mission initialization to complete..."]] spawn BIS_fnc_typeText;
+[["The zones are being generated.  Please wait for mission initialization to complete..."]] spawn BIS_fnc_typeText;
 [[{player globalChat "DO NOT USE ACTION MENU UNTIL MISSION INITIALIZATION IS COMPLETE"}],"BIS_fnc_Spawn",true,false] call BIS_fnc_MP;
 [[{hint "DO NOT USE ACTION MENU UNTIL MISSION INITIALIZATION IS COMPLETE"}],"BIS_fnc_Spawn",true,false] call BIS_fnc_MP;
 
@@ -62,7 +62,7 @@ for [{_i=1}, {_i<=zones_number}, {_i=_i+1}] do  // BEGIN "FOR" LOOP --
 };
 
 openMap [false, false]; 
-		
+
 //hintSilent format["All zones found\nWelcome to %1\nHave fun !\nDUWS by kibot",_worldName];
 player globalChat format["All zones found. Welcome to %1, %2",_worldName,profileName];
 
@@ -80,14 +80,12 @@ player globalChat format["All zones found. Welcome to %1, %2",_worldName,profile
 _zones_array = [_zones_array, 0] call BIS_fnc_removeIndex;
 
 //player globalchat format["%1",_zones_array];
-_warcom_init = [_zones_array, getpos hq_blu1, [0,0,0], blufor_ap, opfor_ap, 2700,blufor_ai_skill,opfor_ai_skill, 2000] execVM "WARCOM\WARCOM_init.sqf"; // 2700 is 40 mins
+_warcom_init = [_zones_array, getPosWorld hq_blu1, [0,0,0], blufor_ap, opfor_ap, 2700,blufor_ai_skill,opfor_ai_skill, 2000] execVM "WARCOM\WARCOM_init.sqf"; // 2700 is 40 mins
 waitUntil {scriptDone _warcom_init};
 sleep 0.1;
 
 execVM "utilities\autoSave.sqf";
 sleep 1;
 
-[[format["MISSION INITIALIZATION COMPLETE!<br/>Campaign generated<br/>Welcome to %1, %2",_worldName,profilename]]] spawn BIS_fnc_typeText;  
+[[format["MISSION INITIALIZATION COMPLETE! Campaign generated. Welcome to %1, %2",_worldName,profilename]]] spawn BIS_fnc_typeText;  
 playMusic ["EventTrack01a_F_EPA", 0];
-
-if (debugmode) exitWith {};

@@ -1,7 +1,9 @@
 
 mission_number_of_missions_done = (mission_number_of_missions_done + 1);  
-profileNamespace setVariable ["profile_number_of_missions_done", mission_number_of_missions_done]; 
-saveProfileNamespace; // sauvegarde le profil
+if(DedicatedMission) then {
+	profileNamespace setVariable ["profile_number_of_missions_done", mission_number_of_missions_done]; 
+	saveProfileNamespace; // sauvegarde le profil
+};
 
 if (isMultiplayer) then {
 	if (isServer) then {
@@ -9,4 +11,3 @@ if (isMultiplayer) then {
 		publicVariable "finishedMissionsNumber";
 		};
 	};
-	

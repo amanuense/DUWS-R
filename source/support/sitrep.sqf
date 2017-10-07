@@ -6,7 +6,9 @@ if (commandpointsblu1>=1) exitWith
   commandpointsblu1 = commandpointsblu1 - 1;
   publicVariable "commandpointsblu1";
 
-saveGame;
+  if(!isDedicated) then {
+    saveGame;
+  };
 
   sleep 0.5;
   ["sitrepinfo",["SITREP","The game has been saved"]] call bis_fnc_showNotification;

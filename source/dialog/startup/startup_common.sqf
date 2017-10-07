@@ -1,3 +1,4 @@
+
 // MAX RADIUS
 _index = lbCurSel 2100;
 switch (_index) do {
@@ -184,9 +185,6 @@ switch (_index) do {
     case index_amount_cp_600: {
         commandpointsblu1 = 600
     };
-    case index_amount_cp_100000: {
-        commandpointsblu1 = 100000
-    };
 };
 
 // Weather type
@@ -208,7 +206,6 @@ switch (_index) do {
         weather_type = "mediterranean";
     };
     case index_weather_type_disable: {
-        weather_type = "none";
         dynamic_weather_enable = false;
     };
 };
@@ -388,17 +385,8 @@ switch (_index) do {
 if (zones_max_radius <= zones_min_radius) exitWith {Hint "Unable to generate campaign:\nMaximum radius of a zone\nmust be superior to\nMinimum radius of a zone"};
 
 zones_spacing = zones_max_radius + 200;
-publicVariable "chosen_settings";
-publicVariable "zones_max_radius";
-publicVariable "zones_min_radius";
-publicVariable "zones_number";
 publicVariable "commandpointsblu1";
 publicVariable "weather_type";
 publicVariable "blufor_ai_skill";
 publicVariable "opfor_ai_skill";
-publicVariable "opfor_ap";
-publicVariable "blufor_ap";
 publicVariable "enableChopperFastTravel";
-publicVariable "enable_fast_travel";
-publicVariable "zones_max_dist_from_hq";
-

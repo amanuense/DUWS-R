@@ -1,7 +1,7 @@
 ///////////////////////////////////////////////////////////////////////////
 /// Styles
 ///////////////////////////////////////////////////////////////////////////
-
+#include "..\taw_vd\gui.h"
 // Control types
 #define CT_STATIC             0
 #define CT_BUTTON             1
@@ -101,25 +101,7 @@
 ///////////////////////////////////////////////////////////////////////////
 /// Base Classes
 ///////////////////////////////////////////////////////////////////////////
-class RscText
-{
-    access = 0;
-    type = 0;
-    idc = -1;
-    colorBackground[] = {0,0,0,0};
-    colorText[] = {0.8784,0.8471,0.651,1};
-    text = "";
-    fixedWidth = 0;
-    x = 0;
-    y = 0;
-    h = 0.037;
-    w = 0.3;
-    shadow = 2;
-    font = "Puristamedium";
-    SizeEx = 0.04;
-    style = 0;
-    lineSpacing = 1;
-};
+
 class RscStructuredText
 {
     access = 0;
@@ -163,26 +145,7 @@ class RscPicture
     w = 0.2;
     h = 0.15;
 };
-class RscEdit
-{
-    access = 0;
-    type = 2;
-    x = 0;
-    y = 0;
-    h = 0.04;
-    w = 0.2;
-    colorBackground[] = {0,0,0,1};
-    colorDisabled[] = {0.4,0.4,0.4,1};
-    colorText[] = {0.95,0.95,0.95,1};
-    colorSelection[] = {0.8784,0.8471,0.651,1};
-    autocomplete = "";
-    text = "";
-    size = 0.2;
-    style = "0x00 + 0x40";
-    font = "Puristamedium";
-    shadow = 2;
-    sizeEx = 0.03921;
-};
+
 class RscCombo
 {
     access = 0;
@@ -224,50 +187,7 @@ class RscCombo
     font = "Puristamedium";
     sizeEx = 0.03921;
 };
-class RscListBox
-{
-    access = 0;
-    type = 5;
-    w = 0.4;
-    h = 0.4;
-    rowHeight = 0;
-    colorText[] = {0.8784,0.8471,0.651,1};
-    colorComboScrollbar[] = {0.95,0.95,0.95,1};
-    colorSelect[] = {0.95,0.95,0.95,1};
-    colorSelect2[] = {0.95,0.95,0.95,1};
-    colorSelectBackground[] = {0,0,0,1};
-    colorSelectBackground2[] = {0.8784,0.8471,0.651,1};
-    colorBackground[] = {0,0,0,1};
-    soundSelect[] = {"",0.1,1};
-    arrowEmpty = "#(argb,8,8,3)color(1,1,1,1)";
-    arrowFull = "#(argb,8,8,3)color(1,1,1,1)";
-    colorDisabled[] = {};
 
-    class ComboScrollBar
-    {
-        color[] = {1,1,1,0.6};
-        colorActive[] = {1,1,1,1};
-        colorDisabled[] = {1,1,1,0.3};
-        shadow = 0;
-        thumb = "\A3\ui_f\data\gui\cfg\scrollbar\thumb_ca.paa";
-        arrowFull = "\A3\ui_f\data\gui\cfg\scrollbar\arrowFull_ca.paa";
-        arrowEmpty = "\A3\ui_f\data\gui\cfg\scrollbar\arrowEmpty_ca.paa";
-        border = "\A3\ui_f\data\gui\cfg\scrollbar\border_ca.paa";
-    };
-
-    class ListScrollBar {};
-
-    style = 16;
-    font = "Puristamedium";
-    shadow = 2;
-    sizeEx = 0.027;
-    color[] = {1,1,1,1};
-    period = 1.2;
-    maxHistoryDelay = 1;
-    autoScrollSpeed = -1;
-    autoScrollDelay = 5;
-    autoScrollRewind = 0;
-};
 class RscButton
 {
     access = 0;
@@ -298,84 +218,6 @@ class RscButton
     offsetPressedX = 0.002;
     offsetPressedY = 0.002;
     borderSize = 0;
-};
-class RscShortcutButton
-{
-    type = 16;
-    x = 0.1;
-    y = 0.1;
-
-    class HitZone
-    {
-        left = 0.004;
-        top = 0.029;
-        right = 0.004;
-        bottom = 0.029;
-    };
-
-    class ShortcutPos
-    {
-        left = 0.0145;
-        top = 0.026;
-        w = 0.0392157;
-        h = 0.0522876;
-    };
-
-    class TextPos
-    {
-        left = 0.05;
-        top = 0.034;
-        right = 0.005;
-        bottom = 0.005;
-    };
-
-    shortcuts[] = {};
-    textureNoShortcut = "#(argb,8,8,3)color(0,0,0,0)";
-    color[] = {0.8784,0.8471,0.651,1};
-    color2[] = {0.95,0.95,0.95,1};
-    colorDisabled[] = {1,1,1,0.25};
-    colorBackground[] = {1,1,1,1};
-    colorBackground2[] = {1,1,1,0.4};
-
-    class Attributes
-    {
-        font = "Puristamedium";
-        color = "#E5E5E5";
-        align = "left";
-        shadow = "true";
-    };
-
-    idc = -1;
-    style = 0;
-    default = 0;
-    shadow = 2;
-    w = 0.183825;
-    h = 0.104575;
-    periodFocus = 1.2;
-    periodOver = 0.8;
-    animTextureNormal = "\ca\ui\data\ui_button_normal_ca.paa";
-    animTextureDisabled = "\ca\ui\data\ui_button_disabled_ca.paa";
-    animTextureOver = "\ca\ui\data\ui_button_over_ca.paa";
-    animTextureFocused = "\ca\ui\data\ui_button_focus_ca.paa";
-    animTexturePressed = "\ca\ui\data\ui_button_down_ca.paa";
-    animTextureDefault = "\ca\ui\data\ui_button_default_ca.paa";
-    period = 0.4;
-    font = "Puristamedium";
-    size = 0.03921;
-    sizeEx = 0.03921;
-    text = "";
-    soundEnter[] = {"\ca\ui\data\sound\onover",0.09,1};
-    soundPush[] = {"\ca\ui\data\sound\new1",0,0};
-    soundClick[] = {"\ca\ui\data\sound\onclick",0.07,1};
-    soundEscape[] = {"\ca\ui\data\sound\onescape",0.09,1};
-    action = "";
-
-    class AttributesImage
-    {
-        font = "Puristamedium";
-        color = "#E5E5E5";
-        align = "left";
-    };
 };
 class RscShortcutButtonMain
 {

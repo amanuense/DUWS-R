@@ -38,15 +38,12 @@ _group = createGroup west;
 // TASK AND NOTIFICATION
 _VARtaskgeneratedName = format ["rescue%1%2",round(_MissionPos select 0),round(_Missionpos select 1)]; // generate variable name for task
 
-// REPLACED WITH compact BIS_func
-//_taskhandle = player createSimpleTask ["taskRescue"];
-//_taskhandle setSimpleTaskDescription ["One of our patrols has been ambushed and requires immediate assistance",_mission_name,""];
-//_taskhandle setSimpleTaskDestination (getMarkerPos str(_markername));
-
-[west, "_taskhandle", ["taskRescue.", "One of our patrols has been ambushed and requires immediate assistance", "(getMarkerPos str(_markername)"], objNull, true] call BIS_fnc_taskCreate; 
+_taskhandle = player createSimpleTask ["taskRescue"];
+_taskhandle setSimpleTaskDescription ["One of our patrols has been ambushed and requires immediate assistance",_mission_name,""];
+_taskhandle setSimpleTaskDestination (getMarkerPos str(_markername));
 
 if (!ismultiplayer) then {
-    execVM "utilities\autoSave.sqf";
+    execVM "misc\autoSave.sqf.sqf";
 };
 
 ["TaskAssigned",["",_mission_name]] call bis_fnc_showNotification;
@@ -60,8 +57,10 @@ _trg setTriggerActivation["WEST","PRESENT",false];
 _trg setTriggerStatements["this",format["[""%1"",%2,%3,%4,%5,""%6"",this] execvm ""missions\missions\rescue\success.sqf""",_markername,_soldier1,_soldier2,_soldier3,_MissionPos,_markername2], ""];
 _trg setTriggerTimeout [10, 10, 10, true ];  
 
+if(debugmode) exitWith { diag_log format ["rescue mission.sqf debug mode"]; };
 // CREATE OPFOR PATROLS
 sleep 1;
-[_randompos, _radius] execvm "createoppatrol.sqf";
-[_randompos, _radius] execvm "createoppatrol.sqf";
+[_randompos, _radius] execvm "support\createoppatrol.sqf";
+[_randompos, _radius] execvm "support\createoppatrol.sqf";
+
 

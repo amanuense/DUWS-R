@@ -1,8 +1,8 @@
 _index = lbCurSel 2101;
 
-_spawnPos = getpos hq_blu1;
-_spawnPos = [(_spawnPos select 0)+15, _spawnPos select 1];
-
+_spawnPos = getPosWorld hq_blu1;
+//_spawnPos = [(_spawnPos select 0)+15, _spawnPos select 1];
+_spawnPos = [_spawnPos, 10, 50, 3, 0, 1, 0] call BIS_fnc_findSafePos;
 switch (_index) do
 {
     case 0: {

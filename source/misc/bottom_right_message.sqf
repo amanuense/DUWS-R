@@ -73,7 +73,7 @@ private["_tLoc","_tMap","_tDate","_tTime","_tTimeH","_tTimeM","_tDay","_tMonth",
 _showDate 	= true;
 
 
-_position  	= [_this, 0, getPos player, [[]]] call BIS_fnc_param;
+_position  	= [_this, 0, getPosWorld player, [[]]] call BIS_fnc_param;
 _date 	   	= [_this, 1, date, [[]]] call BIS_fnc_param;
 _tMap		= [_this, 2, "auto", [""]] call BIS_fnc_param;
 _tLoc		= [_this, 3, "auto", [""]] call BIS_fnc_param;
@@ -149,7 +149,7 @@ if (_showLocation && _tLoc == "auto") then
 {
 	private["_locations","_loc"];
 
-	_locations = nearestLocations [getPos player, ["NameCity","NameCityCapital","NameLocal","NameMarine","NameVillage"], 500];
+	_locations = nearestLocations [getPosWorld player, ["NameCity","NameCityCapital","NameLocal","NameMarine","NameVillage"], 500];
 
 	//filter-out locations without names
 	{
@@ -160,11 +160,11 @@ if (_showLocation && _tLoc == "auto") then
 	}
 	forEach _locations; _locations = _locations - [objNull];
 
-	if (count _locations > 0) then
+	if !(_locations isEqualTo []) then
 	{
 		_loc = _locations select 0;
 
-		if ((getPos player) in _loc) then
+		if ((getPosWorld player) in _loc) then
 		{
 			_tLoc  = text _loc;
 		}

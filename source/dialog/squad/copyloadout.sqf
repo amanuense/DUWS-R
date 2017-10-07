@@ -6,7 +6,7 @@ _arrayOfYellowUnits = [];
         _arrayOfYellowUnits = _arrayOfYellowUnits + [_x];
     }
 } forEach units group player;
-if (count _arrayOfYellowUnits<1) exitWith {hint "No units assigned to Yellow team"};  // SELECT THE  YELLOW UNITS, PUT INSIDE  _arrayOfYellowUnits
+if (_arrayOfYellowUnits isEqualTo []) exitWith {hint "No units assigned to Yellow team"};  // SELECT THE  YELLOW UNITS, PUT INSIDE  _arrayOfYellowUnits
 
 // GET PLAYER GEAR
 _helmet = headgear player;

@@ -8,7 +8,7 @@ for "_timer" from 10 to 1 step -1 do {
 };
 
 _selectedGroup = hcSelected player;
-if (count _selectedGroup<1) exitWith {hint "You don't have any High Command squad selected"};
+if (_selectedGroup isEqualTo []) exitWith {hint "You don't have any High Command squad selected"};
 if (count _selectedGroup>1) exitWith {hint "You must select only 1 squad"};
 
 _group = _selectedGroup select 0;

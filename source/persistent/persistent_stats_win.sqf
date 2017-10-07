@@ -1,3 +1,4 @@
+if(DedicatedMission) exitWith {};
 
 _worldName = getText(configFile >> "cfgWorlds" >> worldName >> "description");
 mission_array_of_islands_captured = mission_array_of_islands_captured + [_worldName];  // Ajoute l'île capturée dans l'array

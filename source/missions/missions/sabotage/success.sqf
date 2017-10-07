@@ -16,24 +16,10 @@ call compile format["_taskhandle = %1",_VARtaskgeneratedName]; // recall variabl
 
 _object removeAction _action;
 
-//player removeSimpleTask _taskhandle;
-[["_taskhandle", "WEST"],"BIS_fnc_deleteTask", true, true] call BIS_fnc_MP;
+player removeSimpleTask _taskhandle;
 
 deleteMarker str(_markername2);
 deleteMarker str(_markername);
 
 // Give cookies  (bonus & notifications)
-reward = (20 * cp_reward_multiplier);
-["TaskSucceeded",["",_mission_name]] call bis_fnc_showNotification;
-["cpaddedmission",[reward]] call bis_fnc_showNotification;
-WARCOM_blufor_ap = WARCOM_blufor_ap + 20;
-commandpointsblu1 = commandpointsblu1 + reward;
-missions_success = missions_success + 1;
-publicVariable "commandpointsblu1";
-publicVariable "WARCOM_blufor_ap";
-finishedMissionsNumber = finishedMissionsNumber + 1;
-publicVariable "finishedMissionsNumber";
-_operHandler = execVM "dialog\operative\operative_mission_complete.sqf"; 
-
-// ADD PERSISTENT STAT
-_addmission = [] execVM "persistent\persistent_stats_missions_total.sqf";
+[20, _mission_name ] execVM "missions\mission_score.sqf";

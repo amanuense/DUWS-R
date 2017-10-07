@@ -2,6 +2,8 @@ _centerPos = _this select 0;
 _fob = _this select 1;
 _size = 500;
 
+diag_log format["guardsFOB.sqf"];
+
 // Create the guards
 _groupGuard = createGroup WEST;
 _hqGuard1 = _groupGuard createUnit ["B_Soldier_F", _centerPos, [], 0, "FORM"]; 
