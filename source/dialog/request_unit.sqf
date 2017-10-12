@@ -1,4 +1,8 @@
-_index = lbCurSel 2100;
+#include "..\global_defines.h"
+
+//TODO parametrize this file!!!
+
+_index = lbCurSel MENU_BLU_UNIT_REQUEST;
 
 _skill = (blufor_ai_skill select 0)+0.2;
 _skillSF = (blufor_ai_skill select 0)+0.5;
@@ -9,7 +13,7 @@ switch (_index) do {
         if (commandpointsblu1 >= 2) then {
             hint "Unit ready !";
             commandpointsblu1 = commandpointsblu1 - 2;
-            ctrlSetText [1000, format["%1",commandpointsblu1]];
+            ctrlSetText [MENU_COMMAND_POINTS_BLU, format["%1",commandpointsblu1]];
             _group = group player ;
             "B_Soldier_F" createUnit [_spawnpos, _group, "", _skill, "private"] ;
         }  else  {
@@ -20,7 +24,7 @@ switch (_index) do {
         if (commandpointsblu1 >= 3) then {
             hint "Unit ready !";
             commandpointsblu1 = commandpointsblu1 - 3;
-            ctrlSetText [1000, format["%1",commandpointsblu1]];
+            ctrlSetText [MENU_COMMAND_POINTS_BLU, format["%1",commandpointsblu1]];
             _group = group player ;
             "B_Soldier_GL_F" createUnit [_spawnpos, _group, "", _skill, "private"] ;
         }  else  {
@@ -31,7 +35,7 @@ switch (_index) do {
         if (commandpointsblu1 >= 3) then {
             hint "Unit ready !";
             commandpointsblu1 = commandpointsblu1 - 3;
-            ctrlSetText [1000, format["%1",commandpointsblu1]];
+            ctrlSetText [MENU_COMMAND_POINTS_BLU, format["%1",commandpointsblu1]];
             _group = group player ;
             "B_Soldier_AR_F" createUnit [_spawnpos, _group, "", _skill, "private"] ;
         } else {
@@ -42,7 +46,7 @@ switch (_index) do {
         if (commandpointsblu1 >= 3) then {
             hint "Unit ready !";
             commandpointsblu1 = commandpointsblu1 - 3;
-            ctrlSetText [1000, format["%1",commandpointsblu1]];
+            ctrlSetText [MENU_COMMAND_POINTS_BLU, format["%1",commandpointsblu1]];
             _group = group player ;
             "B_Soldier_LAT_F" createUnit [_spawnpos, _group, "", _skill, "private"] ;
         } else {
@@ -53,7 +57,7 @@ switch (_index) do {
         if (commandpointsblu1 >= 4) then {
             hint "Unit ready !";
             commandpointsblu1 = commandpointsblu1 - 4;
-            ctrlSetText [1000, format["%1",commandpointsblu1]];
+            ctrlSetText [MENU_COMMAND_POINTS_BLU, format["%1",commandpointsblu1]];
             _group = group player ;
             "B_medic_F" createUnit [_spawnpos, _group, "", _skill, "private"] ;
         } else {
@@ -64,7 +68,7 @@ switch (_index) do {
         if (commandpointsblu1 >= 4) then {
             hint "Unit ready !";
             commandpointsblu1 = commandpointsblu1 - 4;
-            ctrlSetText [1000, format["%1",commandpointsblu1]];
+            ctrlSetText [MENU_COMMAND_POINTS_BLU, format["%1",commandpointsblu1]];
             _group = group player ;
             "B_soldier_AA_F" createUnit [_spawnpos, _group, "", _skill, "private"] ;
         } else {
@@ -75,7 +79,7 @@ switch (_index) do {
         if (commandpointsblu1 >= 4) then {
             hint "Unit ready !";
             commandpointsblu1 = commandpointsblu1 - 4;
-            ctrlSetText [1000, format["%1",commandpointsblu1]];
+            ctrlSetText [MENU_COMMAND_POINTS_BLU, format["%1",commandpointsblu1]];
             _group = group player ;
             "B_soldier_repair_F" createUnit [_spawnpos, _group, "", _skill, "private"] ;
         } else {
@@ -86,7 +90,7 @@ switch (_index) do {
         if (commandpointsblu1 >= 4) then {
             hint "Unit ready !";
             commandpointsblu1 = commandpointsblu1 - 4;
-            ctrlSetText [1000, format["%1",commandpointsblu1]];
+            ctrlSetText [MENU_COMMAND_POINTS_BLU, format["%1",commandpointsblu1]];
             _group = group player ;
             "B_soldier_AT_F" createUnit [_spawnpos, _group, "", _skill, "private"] ;
         } else {
@@ -97,7 +101,7 @@ switch (_index) do {
         if (commandpointsblu1 >= 3) then {
             hint "Unit ready !";
             commandpointsblu1 = commandpointsblu1 - 3;
-            ctrlSetText [1000, format["%1",commandpointsblu1]];
+            ctrlSetText [MENU_COMMAND_POINTS_BLU, format["%1",commandpointsblu1]];
             _group = group player ;
             "B_diver_F" createUnit [_spawnpos, _group, "", _skillSF, "private"] ;
         } else {
@@ -108,7 +112,7 @@ switch (_index) do {
         if (commandpointsblu1 >= 3) then {
             hint "Unit ready !";
             commandpointsblu1 = commandpointsblu1 - 3;
-            ctrlSetText [1000, format["%1",commandpointsblu1]];
+            ctrlSetText [MENU_COMMAND_POINTS_BLU, format["%1",commandpointsblu1]];
             _group = group player ;
             "B_soldier_M_F" createUnit [_spawnpos, _group, "", _skill, "private"] ;
         } else {
@@ -119,7 +123,7 @@ switch (_index) do {
         if (commandpointsblu1 >= 4) then {
             hint "Unit ready !";
             commandpointsblu1 = commandpointsblu1 - 4;
-            ctrlSetText [1000, format["%1",commandpointsblu1]];
+            ctrlSetText [MENU_COMMAND_POINTS_BLU, format["%1",commandpointsblu1]];
             _group = group player ;
             "B_sniper_F" createUnit [_spawnpos, _group, "", _skillSF, "private"] ;
         } else {
@@ -130,7 +134,7 @@ switch (_index) do {
         if (commandpointsblu1 >= 3) then {
             hint "Unit ready !";
             commandpointsblu1 = commandpointsblu1 - 3;
-            ctrlSetText [1000, format["%1",commandpointsblu1]];
+            ctrlSetText [MENU_COMMAND_POINTS_BLU, format["%1",commandpointsblu1]];
             _group = group player ;
             "B_spotter_F" createUnit [_spawnpos, _group, "", _skillSF, "private"] ;
         } else {
@@ -141,7 +145,7 @@ switch (_index) do {
         if (commandpointsblu1 >= 4) then {
             hint "Unit ready !";
             commandpointsblu1 = commandpointsblu1 - 4;
-            ctrlSetText [1000, format["%1",commandpointsblu1]];
+            ctrlSetText [MENU_COMMAND_POINTS_BLU, format["%1",commandpointsblu1]];
             _group = group player ;
             "B_soldier_exp_F" createUnit [_spawnpos, _group, "", _skill, "private"] ;
         } else {

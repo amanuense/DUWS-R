@@ -1,4 +1,5 @@
 // TODO: Localize text in source/dialog/startup/startup.hpp
+#include "..\..\global_defines.h"
 
 class startup_dialog
 {

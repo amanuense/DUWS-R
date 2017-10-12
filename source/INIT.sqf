@@ -1,3 +1,5 @@
+#include "global_defines.h"
+
 diag_log format ["------------------ DUWS-R START ----v2------ player: %1", profileName];
 
 //////////////////////////////////////////////////////
@@ -215,7 +217,7 @@ if (isMultiplayer) then {
         commandpointsblu1 = commandpointsblu1 - DUWSMP_CP_death_cost;
         publicVariable "commandpointsblu1";
         }];
-    "support_specialized_training_available" addPublicVariableEventHandler {lbSetColor [2103, 11, [0, 1, 0, 1]];};
+    "support_specialized_training_available" addPublicVariableEventHandler {lbSetColor [MENU_BLU_SUPPORT_REQUEST, 11, [0, 1, 0, 1]];};
     
     //verify if this is needed.
     "support_armory_available" addPublicVariableEventHandler {
@@ -223,7 +225,7 @@ if (isMultiplayer) then {
         {
             _x addaction ["<t color='#ff0066'>Armory (VA)</t>","support\bisArsenal.sqf", "", 0, true, true, "", "_this == player"];
         } count (Array_of_FOBS);
-        lbSetColor [2103, 5, [0, 1, 0, 1]];
+        lbSetColor [MENU_BLU_SUPPORT_REQUEST, 5, [0, 1, 0, 1]];
     
     };
 
