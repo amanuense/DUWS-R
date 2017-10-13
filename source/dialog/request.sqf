@@ -1,42 +1,28 @@
 #include "..\global_defines.h"
+#include "..\unit_data.h"
 
 
 _handle = createDialog "ressourceheader";
 waitUntil {dialog};
 ctrlSetText [MENU_COMMAND_POINTS_BLU, format["%1",commandpointsblu1]];
 ctrlSetText [MENU_ZONES_CONTROL_BLU, format["%1",zoneundercontrolblu]];
-ctrlSetText [1002, format["%1",WARCOM_blufor_ap]];
+ctrlSetText [WARCOM_BLU_AP, format["%1",WARCOM_blufor_ap]];
 
-// UNITS  
-_index = lbAdd [MENU_BLU_UNIT_REQUEST, "Rifleman(2CP)"];                  // 0
-_index = lbAdd [MENU_BLU_UNIT_REQUEST, "Grenadier(3CP)"];                 // 1
-_index = lbAdd [MENU_BLU_UNIT_REQUEST, "Automatic Rifleman(3CP)"];        // 2
-_index = lbAdd [MENU_BLU_UNIT_REQUEST, "AT Rifleman(3CP)"];               // 3
-_index = lbAdd [MENU_BLU_UNIT_REQUEST, "Medic(4CP)"];                     // 4
-_index = lbAdd [MENU_BLU_UNIT_REQUEST, "AA Specialist(4CP)"];             // 5
-_index = lbAdd [MENU_BLU_UNIT_REQUEST, "Repair Specialist(4CP)"];         // 6
-_index = lbAdd [MENU_BLU_UNIT_REQUEST, "AT Specialist(4CP)"];             // 7
-_index = lbAdd [MENU_BLU_UNIT_REQUEST, "SF Diver(3CP)"];                  // 8
-_index = lbAdd [MENU_BLU_UNIT_REQUEST, "Marksman(3CP)"];                  // 9
-_index = lbAdd [MENU_BLU_UNIT_REQUEST, "Sniper(4CP)"];                    // 10
-_index = lbAdd [MENU_BLU_UNIT_REQUEST, "Spotter(3CP)"];                   // 11
-_index = lbAdd [MENU_BLU_UNIT_REQUEST, "Explosive specialist(4CP)"];      // 12
-lbSetCurSel [MENU_BLU_UNIT_REQUEST, 0];
+//TODO compile or move to other file
+//TODO possible optimization is to remove menu_item from the array
+add_menu_items = {	
+	_array     = _this select 0;
+	{
+		lbAdd [ (_x select 0), format ["%1(%2 CP)", (_x select 1), (_x select 2)] ];
+	}forEach _array;
+	lbSetCurSel [(_array select 0) select 0, 0];
+};
 
-// SQUADS  
-_index0 = lbAdd [MENU_BLU_SQUAD_REINFORCE, "Fireteam(8CP)"];                   // 0
-_index0 = lbAdd [MENU_BLU_SQUAD_REINFORCE, "Rifle Squad(16CP)"];               // 1
-_index0 = lbAdd [MENU_BLU_SQUAD_REINFORCE, "Weapons Squad(18CP)"];             // 2
-_index0 = lbAdd [MENU_BLU_SQUAD_REINFORCE, "AT Team(12CP)"];                   // 3
-_index0 = lbAdd [MENU_BLU_SQUAD_REINFORCE, "AA Team(15CP)"];                   // 4
-_index0 = lbAdd [MENU_BLU_SQUAD_REINFORCE, "SF Recon Team(12CP)"];             // 5
-_index0 = lbAdd [MENU_BLU_SQUAD_REINFORCE, "SF Recon Squad(20CP)"];            // 6
-_index0 = lbAdd [MENU_BLU_SQUAD_REINFORCE, "Divers Team(12CP)"];               // 7
-_index0 = lbAdd [MENU_BLU_SQUAD_REINFORCE, "Sniper Team(8CP)"];                // 8
-_index0 = lbAdd [MENU_BLU_SQUAD_REINFORCE, "Medical Team(10CP)"];              // 9
-_index0 = lbAdd [MENU_BLU_SQUAD_REINFORCE, "Motorized scouts(28CP)"];          // 10
-_index0 = lbAdd [MENU_BLU_SQUAD_REINFORCE, "Mechanized squad(46CP)"];          // 11
-lbSetCurSel [MENU_BLU_SQUAD_REINFORCE, 0];
+
+//this code adds all elements to the menu
+[_menu_request_unit_items] call add_menu_items;
+[_menu_request_squad_items] call add_menu_items;
+
 
 // VEHICLES
 _index1 = lbAdd [MENU_BLU_VEHICLE_REQUEST, "Small Transport Truck 1 (seats 6 - 4CP)"];       // 0

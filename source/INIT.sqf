@@ -188,10 +188,15 @@ if (isNil "Array_of_FOBname") then {
     Array_of_FOBname = [];
 };
 
+if (isNil "squad_counters") then {
+	//todo initialize based on the menu element size
+	squad_counters = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+};
+
 player allowDamage false;
 
 #include "dialog\supports_init.hpp"
-#include "dialog\squad_number_init.hpp"
+//#include "dialog\squad_number_init.hpp"
 
 player_has_tactical_glasses = false;
 

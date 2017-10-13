@@ -5,6 +5,7 @@
 //menu defines
 #define MENU_COMMAND_POINTS_BLU 1000
 #define MENU_ZONES_CONTROL_BLU  1001
+#define WARCOM_BLU_AP           1002
 
 
 
@@ -20,7 +21,36 @@
 
 
 //costs
+//units
+#define rifleman_cost       2
+#define grenadier_cost      3
+#define auto_rifleman_cost  3
+#define AT_rifleman_cost    3
+#define medic_cost          4
+#define AA_spec_cost        4
+#define repair_spec_cost    4
+#define AT_spec_cost        4
+#define diver_cost          3
+#define marksman_cost       3
+#define sniper_cost         4
+#define spotter_cost        3
+#define explosive_spec_cost 4
 
+//groups
+#define fireteam_cost        8
+#define riflesquad_cost      16
+#define weaponssquad_cost    18
+#define atteam_cost          12
+#define aateam_cost          15
+#define recon_team_cost      12
+#define recon_squad_cost     20
+#define diver_team_cost      10
+#define sniperteam_cost      8
+#define medicalteam_cost     10
+#define motoscouts_cost      28
+#define mechanized_cost      46
+
+//vehicles
 #define offroad_cost 4
 #define van_cost 6
 #define mrap_cost 5
@@ -50,6 +80,7 @@
 #define uvg_cost 10
 #define UAV_cost 15
 #define UAV2_cost 5
+
 
 
 #endif //__global_defines

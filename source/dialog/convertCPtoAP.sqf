@@ -6,7 +6,7 @@ commandpointsblu1 = commandpointsblu1 - 10;
 WARCOM_blufor_ap = WARCOM_blufor_ap + 15;
 
 ctrlSetText [MENU_COMMAND_POINTS_BLU, format["%1",commandpointsblu1]];
-ctrlSetText [1002, format["%1",WARCOM_blufor_ap]];
+ctrlSetText [WARCOM_BLU_AP, format["%1",WARCOM_blufor_ap]];
 
 publicVariable "commandpointsblu1";
 publicVariable "WARCOM_blufor_ap";

@@ -181,7 +181,7 @@ class ressourceheader
         };
         class ap_text: RscText
         {
-            idc = 1002;
+            idc = WARCOM_BLU_AP;
             text = "000";
             x = 19.5 * GUI_GRID_W + GUI_GRID_X;
             y = 11 * GUI_GRID_H + GUI_GRID_Y;
