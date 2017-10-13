@@ -27,7 +27,10 @@ _selected_fob = _list select _index;
 _selected_fob_pos = _selected_fob select 0;
 _selected_fob_name = _selected_fob select 1;
 
-player setpos _selected_fob_pos;
+//Finding a safe place to spawn
+_selected_fob_pos_safe = [_selected_fob_pos, 0, 25, 2, 0, 20, 0] call BIS_fnc_findSafePos;
+
+player setpos _selected_fob_pos_safe;
 
 closedialog 0;
 
