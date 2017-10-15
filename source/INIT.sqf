@@ -189,14 +189,25 @@ if (isNil "Array_of_FOBname") then {
 };
 
 if (isNil "squad_counters") then {
-	//todo initialize based on the menu element size
-	squad_counters = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+    //todo initialize based on the menu element size
+    squad_counters = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+};
+
+if (isNil "support_purchased") then {
+    //todo initialize based on the menu element size
+    support_purchased = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+};
+
+if (isNil "support_armory_available") then {
+    support_armory_available = false;
+};
+
+if (isNil "support_specialized_training_available") then {
+    support_specialized_training_available = false;
 };
 
 player allowDamage false;
 
-#include "dialog\supports_init.hpp"
-//#include "dialog\squad_number_init.hpp"
 
 player_has_tactical_glasses = false;
 

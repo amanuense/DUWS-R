@@ -1,232 +1,55 @@
 #include "..\global_defines.h"
+#include "..\unit_data.h"
 
-_index2 = lbCurSel MENU_BLU_SUPPORT_REQUEST;
-
-//TODO parametrize this file
+_index = lbCurSel MENU_BLU_SUPPORT_REQUEST;
 
 //all values in this switch are related to the values set on request.sqf.
 diag_log format["request_support.sqf"];
 
-switch (_index2) do {
-    case 0: { //
-        if (commandpointsblu1 >= 5) then {
-            if (!support_supplydrop_available) then {
-                diag_log format["requesting supplydrop"];
-                commandpointsblu1 = commandpointsblu1 - 5;
-                ctrlSetText [MENU_COMMAND_POINTS_BLU, format["%1",commandpointsblu1]];
-                _supplydrop = [player,"ammo"] call BIS_fnc_addCommMenuItem;
-                lbSetColor [MENU_BLU_SUPPORT_REQUEST, index_support_supply, [0, 1, 0, 1]];
-                playSound "boots";
-                support_supplydrop_available = true;
-            } else {
-                hint "This support is already available";
-            };
-        } else {
-            hint "Not enough command points";
-        };
-    };
-    case 1: {
-        if (commandpointsblu1 >= 20) then {
-            if (!support_arty_available) then {
-                commandpointsblu1 = commandpointsblu1 - 20;
-                ctrlSetText [MENU_COMMAND_POINTS_BLU, format["%1",commandpointsblu1]];
-                _supplydrop = [player,"artillery"] call BIS_fnc_addCommMenuItem;
-                lbSetColor [MENU_BLU_SUPPORT_REQUEST, index_support_arty, [0, 1, 0, 1]];
-                playSound "boots";
-                support_arty_available = true;
-            } else {
-                hint "This support is already available";
-            };
-        } else {
-            hint "Not enough command points";
-        };
-    };
-    case 2: {
-        if (commandpointsblu1 >= 10) then {
-            if (!support_mortar_available) then {
-                commandpointsblu1 = commandpointsblu1 - 10;
-                ctrlSetText [MENU_COMMAND_POINTS_BLU, format["%1",commandpointsblu1]];
-                _supplydrop = [player,"mortar"] call BIS_fnc_addCommMenuItem;
-                lbSetColor [MENU_BLU_SUPPORT_REQUEST, index_support_mortar, [0, 1, 0, 1]];
-                playSound "boots";
-                support_mortar_available = true;
-            } else {
-                hint "This support is already available";
-            };
-        } else {
-            hint "Not enough command points";
-        };
-    };
-    case 3: {
-        if (commandpointsblu1 >= 20) then {
-            if (!support_paradrop_available) then {
-                commandpointsblu1 = commandpointsblu1 - 20;
-                ctrlSetText [MENU_COMMAND_POINTS_BLU, format["%1",commandpointsblu1]];
-                _supplydrop = [player,"paradrop"] call BIS_fnc_addCommMenuItem;
-                lbSetColor [MENU_BLU_SUPPORT_REQUEST, index_support_paradrop, [0, 1, 0, 1]];
-                playSound "boots";
-                support_paradrop_available = true;
-            } else {
-                hint "This support is already available";
-            };
-        } else {
-            hint "Not enough command points";
-        };
-    };
-    case 4: {
-        if (commandpointsblu1 >= 15) then {
-            if (!support_jdam_available) then {
-                commandpointsblu1 = commandpointsblu1 - 15;
-                ctrlSetText [MENU_COMMAND_POINTS_BLU, format["%1",commandpointsblu1]];
-                _supplydrop = [player,"jdam"] call BIS_fnc_addCommMenuItem;
-                lbSetColor [MENU_BLU_SUPPORT_REQUEST, index_support_jdam, [0, 1, 0, 1]];
-                playSound "boots";
-                support_jdam_available = true;
-            } else {
-                hint "This support is already available";
-            };
-        } else {
-            hint "Not enough command points";
-        };
-    };
-    case 5: {
-        if (commandpointsblu1 >= 8) then {
-            if (!support_armory_available) then {
-                commandpointsblu1 = commandpointsblu1 - 8;
-                ctrlSetText [MENU_COMMAND_POINTS_BLU, format["%1",commandpointsblu1]];
-                lbSetColor [MENU_BLU_SUPPORT_REQUEST, index_support_armory, [0, 1, 0, 1]];
-                support_armory_available = true;
-                hq_blu1 addaction ["<t color='#ff0066'>Armory (VA)</t>","support\bisArsenal.sqf", "", 0, true, true, "", "_this == player"];
-                {
-                    _x addaction ["<t color='#ff0066'>Armory 2 (VA)</t>","support\bisArsenal.sqf", "", 0, true, true, "", "_this == player"];
-                } count (Array_of_FOBS);
+_element_array = _menu_request_support_items select _index;
+_menu_item     = _element_array select 0;
+_text          = _element_array select 1;
+_cost          = _element_array select 2;
+_comm_menu     = _element_array select 3;
+_is_purchased  = support_purchased select _index;
 
-                playSound "loadgun";
-                publicVariable "support_armory_available";
-                ["armory",["Armory Unlocked","Access the armory at the HQ and at the dropped supply crates"]] call bis_fnc_showNotification;
-            } else {
-                hint "This support is already available";
-            };
-        } else {
-            hint "Not enough command points";
+diag_log format["requested: %1, menu: %2, cost: %3", _text, _menu_item, _cost];
+if (_is_purchased == 0) then {
+    if (commandpointsblu1 >= _cost) then {
+        diag_log format["requesting %1", _text];
+        commandpointsblu1 = commandpointsblu1 - _cost;
+        ctrlSetText [MENU_COMMAND_POINTS_BLU, format["%1",commandpointsblu1]];
+        //this will add the item to the current player
+        if !(_comm_menu == "") then { [player, _comm_menu] call BIS_fnc_addCommMenuItem; };
+        lbSetColor [_menu_item, _index, [0, 1, 0, 1]];
+
+        //set purchased
+        support_purchased set [_index,1];
+        publicVariable "support_purchased";
+        //handle special cases
+        //armory
+        if (_text == "Armory") then {
+            support_armory_available = true;
+            hq_blu1 addaction ["<t color='#ff0066'>Armory (VA)</t>","support\bisArsenal.sqf", "", 0, true, true, "", "_this == player"];
+            {
+                _x addaction ["<t color='#ff0066'>Armory 2 (VA)</t>","support\bisArsenal.sqf", "", 0, true, true, "", "_this == player"];
+            } count (Array_of_FOBS);
+            publicVariable "support_armory_available";
+            ["armory",["Armory Unlocked","Access the armory at the HQ and at the dropped supply crates"]] call bis_fnc_showNotification;
         };
-    };
-    case 6: {
-        if (commandpointsblu1 >= 20) then {
-            if (!support_PFLIR_available) then {
-                commandpointsblu1 = commandpointsblu1 - 20;
-                ctrlSetText [MENU_COMMAND_POINTS_BLU, format["%1",commandpointsblu1]];
-                pFLIRenable = player addaction ["<t color='#a9ff59'>Activate FLIR</t>","pflir\livefeed.sqf","", 0,false,true,"","_target == _this"];
-                lbSetColor [MENU_BLU_SUPPORT_REQUEST, index_support_pFLIR, [0, 1, 0, 1]];
-                support_pflir_available = true;
-                playSound "loadgun";
-                ["pflir",["Personal FLIR display","Toggle you personal FLIR display using the action menu"]] call bis_fnc_showNotification;
-            } else {
-                hint "This support is already available";
-            };
-        } else {
-            hint "Not enough command points";
+        //troop training
+        if (_text == "Specialized Infantry training") then {
+            blufor_ai_skill = [(blufor_ai_skill select 0)+0.3,(blufor_ai_skill select 1)+0.3];
+            support_specialized_training_available = true;
+            publicVariable "support_specialized_training_available";
+            publicVariable "blufor_ai_skill";
+            ["inf_training",["Specialized Infantry training","Our troops are now more skilled in battle"]] call bis_fnc_showNotification;
         };
+    } else {
+        hint "Not enough command points";
     };
-    case 7: {
-        if (commandpointsblu1 >= 10) then {
-            if (!support_uav_recon_available) then {
-                commandpointsblu1 = commandpointsblu1 - 10;
-                ctrlSetText [MENU_COMMAND_POINTS_BLU, format["%1",commandpointsblu1]];
-                _uav_recon = [player,"uav_recon"] call BIS_fnc_addCommMenuItem;
-                lbSetColor [MENU_BLU_SUPPORT_REQUEST, index_support_uavrecon, [0, 1, 0, 1]];
-                playSound "boots";
-                support_uav_recon_available = true;
-            } else {
-                hint "This support is already available";
-            };
-        } else {
-            hint "Not enough command points";
-        };
-    };
-    case 8: {
-        if (commandpointsblu1 >= 3) then {
-            if (!support_veh_refit_available) then {
-                commandpointsblu1 = commandpointsblu1 - 3;
-                ctrlSetText [MENU_COMMAND_POINTS_BLU, format["%1",commandpointsblu1]];
-                _veh_refit = [player,"vehicle_refit"] call BIS_fnc_addCommMenuItem;
-                lbSetColor [MENU_BLU_SUPPORT_REQUEST, index_support_refit, [0, 1, 0, 1]];
-                playSound "loadgun";
-                support_veh_refit_available = true;
-            } else {
-                hint "This support is already available";
-            };
-        } else {
-            hint "Not enough command points";
-        };
-    };
-    case 9: {
-        if (commandpointsblu1 >= 3) then  {
-            if (!support_helotaxi_available) then {
-                commandpointsblu1 = commandpointsblu1 - 3;
-                ctrlSetText [MENU_COMMAND_POINTS_BLU, format["%1",commandpointsblu1]];
-                _veh_refit = [player,"helo_taxi"] call BIS_fnc_addCommMenuItem;
-                lbSetColor [2103, index_support_helotaxi, [0, 1, 0, 1]];
-                playSound "boots";
-                support_helotaxi_available = true;
-            } else {
-                hint "This support is already available";
-            };
-        } else {
-            hint "Not enough command points";
-        };
-    };
-    case 10: {
-        if (commandpointsblu1 >= 25) then  {
-            if (!support_cluster_available) then {
-                commandpointsblu1 = commandpointsblu1 - 25;
-                ctrlSetText [MENU_COMMAND_POINTS_BLU, format["%1",commandpointsblu1]];
-                _cluster = [player,"cluster"] call BIS_fnc_addCommMenuItem;
-                lbSetColor [MENU_BLU_SUPPORT_REQUEST, index_support_cluster, [0, 1, 0, 1]];
-                playSound "boots";
-                support_cluster_available = true;
-            } else {
-                hint "This support is already available";
-            };
-        } else {
-            hint "Not enough command points";
-        };
-    };
-    case 11: {
-        if (commandpointsblu1 >= 20) then {
-            if (!support_specialized_training_available) then {
-                commandpointsblu1 = commandpointsblu1 - 20;
-                ctrlSetText [MENU_COMMAND_POINTS_BLU, format["%1",commandpointsblu1]];
-                ["inf_training",["Specialized Infantry training","Our troops are now more skilled in battle"]] call bis_fnc_showNotification;
-                blufor_ai_skill = [(blufor_ai_skill select 0)+0.3,(blufor_ai_skill select 1)+0.3];
-                lbSetColor [MENU_BLU_SUPPORT_REQUEST, index_support_training, [0, 1, 0, 1]];
-                support_specialized_training_available = true;
-                publicVariable "support_specialized_training_available";
-                playSound "boots";
-                publicVariable "blufor_ai_skill";
-            } else {
-                hint "This support is already available";
-            };
-        } else {
-            hint "Not enough command points";
-        };
-    };
-    case 12: {
-        if (commandpointsblu1 >= 2) then {
-            if (!support_boattaxi_available) then {
-                commandpointsblu1 = commandpointsblu1 - 2;
-                ctrlSetText [MENU_COMMAND_POINTS_BLU, format["%1",commandpointsblu1]];
-                lbSetColor [MENU_BLU_SUPPORT_REQUEST, index_support_boattaxi, [0, 1, 0, 1]];
-                support_boattaxi_available = true;
-                _supplydrop = [player,"boat_taxi"] call BIS_fnc_addCommMenuItem;
-                playSound "boots";
-            } else {
-                hint "This support is already available";
-            };
-        } else {
-            hint "Not enough command points";
-        };
-    };
+} else {
+    hint "This support is already available";
 };
-//hint format["index: %1",_index2];
+
 publicVariable "commandpointsblu1";
