@@ -58,6 +58,6 @@ _listREINF = [];
    
 {
     _fobname = _x select 1;
-    _index = lbAdd [2101, _fobname];
+    _index = lbAdd [MENU_BLU_SQUAD_REINFORCE, _fobname];
 } forEach _listREINF;
-lbSetCurSel [2101, 0];
+lbSetCurSel [MENU_BLU_SQUAD_REINFORCE, 0];

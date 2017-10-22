@@ -1,3 +1,5 @@
+#include "..\global_defines.h"
+
 // TODO: Localize text in this file.
 class ressourceheader
 {
@@ -128,7 +130,7 @@ class ressourceheader
         };
         class RscText_1001: RscText
         {
-            idc = 1001;
+            idc = MENU_ZONES_CONTROL_BLU;
             text = "ZUC:XXX";
             x = 10.5 * GUI_GRID_W + GUI_GRID_X;
             y = 11 * GUI_GRID_H + GUI_GRID_Y;
@@ -179,7 +181,7 @@ class ressourceheader
         };
         class ap_text: RscText
         {
-            idc = 1002;
+            idc = WARCOM_BLU_AP;
             text = "000";
             x = 19.5 * GUI_GRID_W + GUI_GRID_X;
             y = 11 * GUI_GRID_H + GUI_GRID_Y;
@@ -190,7 +192,7 @@ class ressourceheader
         };
         class unitlistbox: RscCombo
         {
-            idc = 2100;
+            idc = MENU_BLU_UNIT_REQUEST;
             x = 1 * GUI_GRID_W + GUI_GRID_X;
             y = 14 * GUI_GRID_H + GUI_GRID_Y;
             w = 11.5 * GUI_GRID_W;
@@ -199,7 +201,7 @@ class ressourceheader
         };
         class squadlist: RscCombo
         {
-            idc = 2101;
+            idc = MENU_BLU_SQUAD_REINFORCE;
             x = 14 * GUI_GRID_W + GUI_GRID_X;
             y = 14 * GUI_GRID_H + GUI_GRID_Y;
             w = 11.5 * GUI_GRID_W;
@@ -208,7 +210,7 @@ class ressourceheader
         };
         class emptyvehiclelist: RscCombo
         {
-            idc = 2102;
+            idc = MENU_BLU_VEHICLE_REQUEST;
             x = 27 * GUI_GRID_W + GUI_GRID_X;
             y = 14 * GUI_GRID_H + GUI_GRID_Y;
             w = 11.5 * GUI_GRID_W;
@@ -217,7 +219,7 @@ class ressourceheader
         };
         class supportunlocklist: RscListBox
         {
-            idc = 2103;
+            idc = MENU_BLU_SUPPORT_REQUEST;
             x = 27 * GUI_GRID_W + GUI_GRID_X;
             y = 18.5 * GUI_GRID_H + GUI_GRID_Y;
             w = 11.5 * GUI_GRID_W;

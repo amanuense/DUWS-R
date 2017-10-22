@@ -1,3 +1,5 @@
+#include "global_defines.h"
+
 diag_log format ["------------------ DUWS-R START ----v2------ player: %1", profileName];
 
 //////////////////////////////////////////////////////
@@ -186,10 +188,26 @@ if (isNil "Array_of_FOBname") then {
     Array_of_FOBname = [];
 };
 
+if (isNil "squad_counters") then {
+    //todo initialize based on the menu element size
+    squad_counters = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+};
+
+if (isNil "support_purchased") then {
+    //todo initialize based on the menu element size
+    support_purchased = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+};
+
+if (isNil "support_armory_available") then {
+    support_armory_available = false;
+};
+
+if (isNil "support_specialized_training_available") then {
+    support_specialized_training_available = false;
+};
+
 player allowDamage false;
 
-#include "dialog\supports_init.hpp"
-#include "dialog\squad_number_init.hpp"
 
 player_has_tactical_glasses = false;
 
@@ -215,7 +233,7 @@ if (isMultiplayer) then {
         commandpointsblu1 = commandpointsblu1 - DUWSMP_CP_death_cost;
         publicVariable "commandpointsblu1";
         }];
-    "support_specialized_training_available" addPublicVariableEventHandler {lbSetColor [2103, 11, [0, 1, 0, 1]];};
+    "support_specialized_training_available" addPublicVariableEventHandler {lbSetColor [MENU_BLU_SUPPORT_REQUEST, 11, [0, 1, 0, 1]];};
     
     //verify if this is needed.
     "support_armory_available" addPublicVariableEventHandler {
@@ -223,7 +241,7 @@ if (isMultiplayer) then {
         {
             _x addaction ["<t color='#ff0066'>Armory (VA)</t>","support\bisArsenal.sqf", "", 0, true, true, "", "_this == player"];
         } count (Array_of_FOBS);
-        lbSetColor [2103, 5, [0, 1, 0, 1]];
+        lbSetColor [MENU_BLU_SUPPORT_REQUEST, 5, [0, 1, 0, 1]];
     
     };
 

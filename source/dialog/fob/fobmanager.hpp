@@ -1,3 +1,4 @@
+#include "..\..\global_defines.h"
 class fob_mng_dialog
 {
 	idd = -1;
@@ -40,7 +41,7 @@ class fob_mng_dialog
         };
         class reinforce_combo: RscCombo
         {
-            idc = 2101;
+            idc = MENU_BLU_SQUAD_REINFORCE;
             x = 19.5 * GUI_GRID_W + GUI_GRID_X;
             y = 10.5 * GUI_GRID_H + GUI_GRID_Y;
             w = 13.5 * GUI_GRID_W;

@@ -1,3 +1,5 @@
+#include "..\..\global_defines.h"
+
 if (!enable_fast_travel) exitWith {hint "Fast travel is disabled"};
 
 //// CREATE THE ARRAY OF FOBS w/ POSITION
@@ -18,7 +20,7 @@ _listREINF = [];
 
     _listREINF = _listREINF + [_array_of_fobs_list_selected];
 } forEach Array_of_FOBS;
-_index = lbCurSel 2101;
+_index = lbCurSel MENU_BLU_SQUAD_REINFORCE;
 
 _selected_fob = _listREINF select _index;
 _selected_fob_pos = _selected_fob select 0;
