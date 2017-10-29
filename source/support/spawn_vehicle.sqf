@@ -23,9 +23,8 @@ if (commandpointsblu1 >= _cost) then {
     hint "Vehicle ready! check map for location";
     commandpointsblu1 = commandpointsblu1 - _cost;
     ctrlSetText [MENU_COMMAND_POINTS_BLU, format["%1",commandpointsblu1]];
-    //spawning the vehicle in 0.0.0 then moving it is faster than spawning it in a specific location.
-    _vehic = _name createVehicle [0,0,0];
-    _vehic setPos (_pos);
+    //Spawn the Vehicle in
+    _vehic = _name createVehicle _pos;
     //create a marker for the new vehicle
     [_pos] spawn _spawn_marker;
 } else {
