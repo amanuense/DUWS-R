@@ -90,9 +90,20 @@ if (isNil "commandpointsblu1") then { commandpointsblu1 = 20; };
 // STARTING ARMY POWER
 if (isNil "blufor_ap") then { blufor_ap = 0; };
 
-opfor_ap = 0; 
+if (DedicatedMission) then {
+    DUWSMP_CP_death_cost = paramsArray select 0; //first element
+    debugmode = [false, true] select (paramsArray select 1);
+    commandpointsblu1 = paramsArray select 2;
+    zones_number = paramsArray select 3;
+    diag_log format ["server, selected CP: %d", commandpointsblu1];
+} else {
+    DUWSMP_CP_death_cost = 1; //first element
+    debugmode = false;
+    commandpointsblu1 = 60;
+    zones_number = 5;
+};
 
-zones_number = 5; // Number of capturables zones to create (when zones are created randomly)
+opfor_ap = 0;
 zones_spacing = 1200; // minimum space between 2 zones (in meters) // SOON OBSOLETE
 zones_max_radius = 1000;   // Determine the maximum radius a generated zone can have   
 zones_min_radius = 200; // Determine the minium radius a generated zone can have. SHOULD NOT BE UNDER 200.
@@ -223,10 +234,20 @@ if (!isDedicated) then {
 addMissionEventHandler ["HandleDisconnect",{_this execVM "misc\gps_deinit.sqf" }];
 
 
+//add respawn inventory options
+[west, "WEST1"] call BIS_fnc_addRespawnInventory;
+[west, "WEST2"] call BIS_fnc_addRespawnInventory;
+[west, "WEST3"] call BIS_fnc_addRespawnInventory;
+[west, "WEST4"] call BIS_fnc_addRespawnInventory;
+[west, "WEST5"] call BIS_fnc_addRespawnInventory;
+[west, "WEST6"] call BIS_fnc_addRespawnInventory;
+[west, "WEST7"] call BIS_fnc_addRespawnInventory;
+[west, "WEST8"] call BIS_fnc_addRespawnInventory;
+[west, "WEST9"] call BIS_fnc_addRespawnInventory;
+
 // IF MP
 if (isMultiplayer) then {
     diag_log format ["environment is multiplayer"];
-    DUWSMP_CP_death_cost = paramsArray select 0; //first element
     diag_log format ["death cost %1", DUWSMP_CP_death_cost];
 
     PlayerKilledEH = player addEventHandler ["killed", {
