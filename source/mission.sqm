@@ -1,4 +1,4 @@
-version=52;
+version=53;
 class EditorData
 {
 	moveGridStep=1;
@@ -8,7 +8,7 @@ class EditorData
 	toggles=1;
 	class ItemIDProvider
 	{
-		nextID=35;
+		nextID=48;
 	};
 	class MarkerIDProvider
 	{
@@ -16,10 +16,10 @@ class EditorData
 	};
 	class Camera
 	{
-		pos[]={145.67934,90.676804,56.841373};
-		dir[]={0.58102089,-0.2424787,0.77703613};
-		up[]={0.14523287,0.97014898,0.19422726};
-		aside[]={0.80093527,-7.8813173e-008,-0.59888673};
+		pos[]={1041.4656,498.49182,651.6347};
+		dir[]={0.60352242,-0.32546926,0.72802788};
+		up[]={0.20775026,0.9455446,0.25060633};
+		aside[]={0.76994473,-5.2386895e-008,-0.63826638};
 	};
 };
 binarizationWanted=0;
@@ -38,14 +38,14 @@ class AddonsMetaData
 			className="A3_Ui_F";
 			name="Arma 3 - User Interface";
 			author="Bohemia Interactive";
-			url="http://www.arma3.com";
+			url="https://www.arma3.com";
 		};
 		class Item1
 		{
 			className="A3_Characters_F";
 			name="Arma 3 Alpha - Characters and Clothing";
 			author="Bohemia Interactive";
-			url="http://www.arma3.com";
+			url="https://www.arma3.com";
 		};
 	};
 };
@@ -58,6 +58,7 @@ class ScenarioData
 	respawn=3;
 	respawnDelay=10;
 	respawnVehicleDelay=30;
+	enableTeamSwitch=0;
 	class Header
 	{
 		gameType="SC";
@@ -164,7 +165,7 @@ class CustomAttributes
 		};
 		class Attribute3
 		{
-			property="ReviveRequiredItemsFakConsumed";
+			property="ReviveMedicSpeedMultiplier";
 			expression="false";
 			class Value
 			{
@@ -174,10 +175,10 @@ class CustomAttributes
 					{
 						type[]=
 						{
-							"BOOL"
+							"SCALAR"
 						};
 					};
-					value=1;
+					value=3;
 				};
 			};
 		};
@@ -202,25 +203,6 @@ class CustomAttributes
 		};
 		class Attribute5
 		{
-			property="ReviveMedicSpeedMultiplier";
-			expression="false";
-			class Value
-			{
-				class data
-				{
-					class type
-					{
-						type[]=
-						{
-							"SCALAR"
-						};
-					};
-					value=3;
-				};
-			};
-		};
-		class Attribute6
-		{
 			property="RespawnButton";
 			expression="true";
 			class Value
@@ -238,7 +220,7 @@ class CustomAttributes
 				};
 			};
 		};
-		class Attribute7
+		class Attribute6
 		{
 			property="ReviveForceRespawnDelay";
 			expression="false";
@@ -257,7 +239,7 @@ class CustomAttributes
 				};
 			};
 		};
-		class Attribute8
+		class Attribute7
 		{
 			property="ReviveBleedOutDelay";
 			expression="false";
@@ -276,7 +258,7 @@ class CustomAttributes
 				};
 			};
 		};
-		class Attribute9
+		class Attribute8
 		{
 			property="ReviveDelay";
 			expression="false";
@@ -295,7 +277,7 @@ class CustomAttributes
 				};
 			};
 		};
-		class Attribute10
+		class Attribute9
 		{
 			property="ReviveUnconsciousStateMode";
 			expression="false";
@@ -314,7 +296,7 @@ class CustomAttributes
 				};
 			};
 		};
-		class Attribute11
+		class Attribute10
 		{
 			property="ReviveRequiredItems";
 			expression="false";
@@ -333,7 +315,7 @@ class CustomAttributes
 				};
 			};
 		};
-		nAttributes=12;
+		nAttributes=11;
 	};
 	class Category1
 	{
@@ -365,7 +347,7 @@ class Mission
 	class Intel
 	{
 		briefingName="[SP/MP]Dynamic Universal War System - Rebirth + dedi";
-		overviewText="Play a full, randomly generated campaign on whatever island you want to. now with (partial) dedicated server support";
+		overviewText="Play a full, randomly generated campaign on whatever island you want to. now with dedicated server support";
 		startWeather=0;
 		startWind=0;
 		forecastWeather=0;
@@ -401,7 +383,7 @@ class Mission
 			side="West";
 			class Entities
 			{
-				items=5;
+				items=7;
 				class Item0
 				{
 					dataType="Object";
@@ -508,6 +490,48 @@ class Mission
 					type="B_soldier_LAT_F";
 					atlOffset=128.14423;
 				};
+				class Item5
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={250.62328,4.7883959,253.40749};
+						angles[]={0,0.72728968,0};
+					};
+					side="West";
+					class Attributes
+					{
+						skill=0.46666664;
+						rank="SERGEANT";
+						name="player18_1";
+						presenceCondition="isMultiplayer";
+						isPlayable=1;
+					};
+					id=36;
+					type="B_soldier_LAT_F";
+					atlOffset=128.31049;
+				};
+				class Item6
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={258.57239,3.4349792,254.07111};
+						angles[]={0,0.072315514,0};
+					};
+					side="West";
+					class Attributes
+					{
+						skill=0.46666664;
+						rank="SERGEANT";
+						name="player14_1";
+						presenceCondition="isMultiplayer";
+						isPlayable=1;
+					};
+					id=38;
+					type="B_medic_F";
+					atlOffset=127.05471;
+				};
 			};
 			class Attributes
 			{
@@ -521,7 +545,7 @@ class Mission
 			side="West";
 			class Entities
 			{
-				items=5;
+				items=7;
 				class Item0
 				{
 					dataType="Object";
@@ -628,6 +652,48 @@ class Mission
 					type="B_soldier_AT_F";
 					atlOffset=122.63943;
 				};
+				class Item5
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={374.42505,5.4268847,243.25562};
+						angles[]={0,0.66734582,0};
+					};
+					side="West";
+					class Attributes
+					{
+						skill=0.46666664;
+						rank="SERGEANT";
+						name="player13_1";
+						presenceCondition="isMultiplayer";
+						isPlayable=1;
+					};
+					id=43;
+					type="B_medic_F";
+					atlOffset=121.88715;
+				};
+				class Item6
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={369.42505,5.9331331,240.5166};
+						angles[]={0,0.66734582,0};
+					};
+					side="West";
+					class Attributes
+					{
+						skill=0.46666664;
+						rank="SERGEANT";
+						name="player16_1";
+						presenceCondition="isMultiplayer";
+						isPlayable=1;
+					};
+					id=44;
+					type="B_soldier_AT_F";
+					atlOffset=122.63819;
+				};
 			};
 			class Attributes
 			{
@@ -641,7 +707,7 @@ class Mission
 			side="West";
 			class Entities
 			{
-				items=5;
+				items=7;
 				class Item0
 				{
 					dataType="Object";
@@ -748,6 +814,48 @@ class Mission
 					type="B_medic_F";
 					atlOffset=118.65112;
 				};
+				class Item5
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={365.3266,-1.960788,263.32669};
+						angles[]={0,0.66734582,0};
+					};
+					side="West";
+					class Attributes
+					{
+						skill=0.46666664;
+						rank="SERGEANT";
+						name="player9_1";
+						presenceCondition="isMultiplayer";
+						isPlayable=1;
+					};
+					id=46;
+					type="B_engineer_F";
+					atlOffset=117.65665;
+				};
+				class Item6
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={360.3266,-0.98684239,260.58768};
+						angles[]={0,0.66734582,0};
+					};
+					side="West";
+					class Attributes
+					{
+						skill=0.46666664;
+						rank="SERGEANT";
+						name="player10_1";
+						presenceCondition="isMultiplayer";
+						isPlayable=1;
+					};
+					id=47;
+					type="B_medic_F";
+					atlOffset=118.63612;
+				};
 			};
 			class Attributes
 			{
@@ -761,7 +869,7 @@ class Mission
 			side="West";
 			class Entities
 			{
-				items=5;
+				items=7;
 				class Item0
 				{
 					dataType="Object";
@@ -867,6 +975,48 @@ class Mission
 					id=31;
 					type="B_recon_medic_F";
 					atlOffset=126.53378;
+				};
+				class Item5
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={314.54257,8.0148134,234.06799};
+						angles[]={0,6.2058606,0};
+					};
+					side="West";
+					class Attributes
+					{
+						skill=0.46666664;
+						rank="SERGEANT";
+						name="player4_1";
+						presenceCondition="isMultiplayer";
+						isPlayable=1;
+					};
+					id=40;
+					type="B_recon_F";
+					atlOffset=125.86752;
+				};
+				class Item6
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={310.8573,8.2339144,237.37094};
+						angles[]={0,0.66734582,0};
+					};
+					side="West";
+					class Attributes
+					{
+						skill=0.46666664;
+						rank="SERGEANT";
+						name="player20_1";
+						presenceCondition="isMultiplayer";
+						isPlayable=1;
+					};
+					id=41;
+					type="B_recon_medic_F";
+					atlOffset=126.56129;
 				};
 			};
 			class Attributes
