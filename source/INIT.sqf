@@ -3,24 +3,24 @@
 diag_log format ["------------------ DUWS-R START ----v2------ player: %1", profileName];
 
 //////////////////////////////////////////////////////
-//  HOW TO MANUALLY CREATE THE MISSION:   
+//  HOW TO MANUALLY CREATE THE MISSION:
 //  1)YOU MUST PLACE THE HQ LOCATION
 //  2)DEFINE THE CAPTURABLE ZONES
 //  -- YOU CAN ALSO JUST PUT A HQ SOMEWHERE AND LET THE ZONES BEING RANDOMLY GENERATED
-//  -- YOU MUST PLACE MANUALLY THE HQ IF YOU ARE ALREADY PLACING THE ZONES BY HAND 
-//  3) DONT FORGET TO DEFINE THE VARIABLES BELOW. If you are ONLY placing the HQ by hand, you just need to put "hq_manually_placed" to 
+//  -- YOU MUST PLACE MANUALLY THE HQ IF YOU ARE ALREADY PLACING THE ZONES BY HAND
+//  3) DONT FORGET TO DEFINE THE VARIABLES BELOW. If you are ONLY placing the HQ by hand, you just need to put "hq_manually_placed" to
 //     "true" instead of "false". If you are also placing the zones by hand, make "zones_manually_placed" to "true".
 /////////////////////////////////////////////////////////////
-//  1) In the gamelogic, for the HQ( !! MAKE ONLY ONE HQ !!): _null=[getPosWorld this] execVM "initHQ\BluHQinit.sqf" 
-// 
-//  2) In the init of gamelogic, to create a capturable enemy zone: 
+//  1) In the gamelogic, for the HQ( !! MAKE ONLY ONE HQ !!): _null=[getPosWorld this] execVM "initHQ\BluHQinit.sqf"
+//
+//  2) In the init of gamelogic, to create a capturable enemy zone:
 //      _null = ["zone name",pts awarded upon capture, zone radius,getPosWorld this,false/true,false/true] execvm "createzone.sqf";
 //        "zone name": name of the zone
 //        pts awarded upon capture: points you earn when you capture the zone. Also the amount of points of army power you take and receive
 //          from the enemy after capture
 //        zone radius: how large the zone is
 //        getPosWorld this: It's the position of the zone. The gamelogic actually. You don't have to modify this.
-//        false/true: if the zone is fortified or not. If the zone is fortified, there will be a bit more enemies and they will be maning 
+//        false/true: if the zone is fortified or not. If the zone is fortified, there will be a bit more enemies and they will be maning
 //          static defences if there are any
 //        false/true: if the zone is selecting randomly a prefab base. Prefab is selected according to the zone radius. The bigger the zone,
 //          the bigger the prefab asset will be chosen.
@@ -51,7 +51,7 @@ HC1Present = if ( isNil "HC1" )  then {False} else {True};
 // you must specify if you have manually placed HQ or not. false = HQ is randomly placed, true = you have manually placed the HQ
 hq_manually_placed = false;
 // you must specify if you have manually placed the zones or not. false = zones are randomly generated, true = you have manually placed the zones
-zones_manually_placed = false;  
+zones_manually_placed = false;
 zones_max_dist_from_hq = 7500;
 dynamic_weather_enable = true;
 maually_chosen = false;
@@ -98,14 +98,13 @@ if (DedicatedMission) then {
     diag_log format ["server, selected CP: %d", commandpointsblu1];
 } else {
     DUWSMP_CP_death_cost = 1; //first element
-    debugmode = false;
     commandpointsblu1 = 60;
     zones_number = 5;
 };
 
 opfor_ap = 0;
 zones_spacing = 1200; // minimum space between 2 zones (in meters) // SOON OBSOLETE
-zones_max_radius = 1000;   // Determine the maximum radius a generated zone can have   
+zones_max_radius = 1000;   // Determine the maximum radius a generated zone can have
 zones_min_radius = 200; // Determine the minium radius a generated zone can have. SHOULD NOT BE UNDER 200.
 
 ///////////////////////////////////////////////////////
@@ -255,7 +254,7 @@ if (isMultiplayer) then {
         publicVariable "commandpointsblu1";
         }];
     "support_specialized_training_available" addPublicVariableEventHandler {lbSetColor [MENU_BLU_SUPPORT_REQUEST, 11, [0, 1, 0, 1]];};
-    
+
     //verify if this is needed.
     "support_armory_available" addPublicVariableEventHandler {
         hq_blu1 addaction ["<t color='#ff0066'>Armory (VA)</t>","support\bisArsenal.sqf", "", 0, true, true, "", "_this == player"];
@@ -263,7 +262,7 @@ if (isMultiplayer) then {
             _x addaction ["<t color='#ff0066'>Armory (VA)</t>","support\bisArsenal.sqf", "", 0, true, true, "", "_this == player"];
         } count (Array_of_FOBS);
         lbSetColor [MENU_BLU_SUPPORT_REQUEST, 5, [0, 1, 0, 1]];
-    
+
     };
 
     // change the shown CP for request dialog
@@ -281,7 +280,7 @@ if (isMultiplayer) then {
         waitUntil {time > 0.1};
         DUWS_host_start = true;
         publicVariable "DUWS_host_start";
-        
+
         if(isDedicated) then {
             //for dedicated server always reset the number of zones
             capturedZonesNumber = 0;
@@ -289,7 +288,7 @@ if (isMultiplayer) then {
             publicVariable "capturedZonesNumber";
             publicVariable "finishedMissionsNumber";
         };
-        // init High Command    
+        // init High Command
         diag_log format ["server is calling hc_init.sqf"];
         _handle = [] execVM "dialog\hc_init.sqf";
         waitUntil {scriptDone _handle};
@@ -317,7 +316,7 @@ if (isServer) then {
         hintsilent "randomly selecting zones location using default settings...";
         waitUntil {time > 1};
         _nil = [] execvm "dialog\startup\startup_random_start.sqf";
-        
+
     }
     else {
         diag_log format ["not dedicated, querying user about placement"];
@@ -332,7 +331,7 @@ if (isServer) then {
     };
 };
 
-if (!isServer) then { 
+if (!isServer) then {
     diag_log format ["waiting for location of the zones."];
     // WHEN CLIENT CONNECTS INIT (might need sleep)
     waitUntil {isPlayer Player};
@@ -367,7 +366,7 @@ execVM "dialog\operative\operator_init.sqf";
 
 diag_log format ["creating help for DUWS"];
 // Create help for DUWS
-_index = player createDiarySubject ["help","DUWS-R Manual"]; 
+_index = player createDiarySubject ["help","DUWS-R Manual"];
 player createDiaryRecord ["help", ["Dedicated server", "when running on a dedicated server all settings will be default, in order to change this you can change them in startup_defaults.sqf (need to open the .PBO)."]];
 player createDiaryRecord ["help", ["Feedback/bug report", "This version has diverged from DUWS-R, please report any issues in the workshop until a dedicated github is created."]];
 player createDiaryRecord ["help", ["Export to another island", "<font color='#FF0000'>How to export to another island:</font color><br />You just need to take the .pbo file and rename it with the name of the island you want to export the mission to. You don't have anything else to do<br /><br />Example:<br />SP_DUWS-R.stratis.pbo >>> SP_DUWS-R.chernarus.pbo"]];
@@ -454,7 +453,7 @@ if (mission_DUWS_firstlaunch) then {
     ["info",["DUWS Manual","Check the manual in the briefing for more info"]] call bis_fnc_showNotification;
 
     if(!DedicatedMission) then {
-        profileNamespace setVariable ["profile_DUWS_firstlaunch", false]; 
+        profileNamespace setVariable ["profile_DUWS_firstlaunch", false];
         saveProfileNamespace;
     };
 };
@@ -475,8 +474,8 @@ if(!isMultiplayer) then {
 //Loading player position and gear.
 //TODO: Add bought supports.
 /*
-if(isServer) then 
-{   
+if(isServer) then
+{
     execVM "persistent\missionSpecific\saveFuncs.sqf";
     waitUntil {!isNil "saveFuncsLoaded"};
 

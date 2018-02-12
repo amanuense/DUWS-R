@@ -25,6 +25,23 @@ str(_markername2) setMarkerColor "ColorYellow";
 str(_markername2) setMarkerSize [_radius, _radius];
 str(_markername2) setMarkerAlpha 0.5;
 
+//CREATE PILOT DESTINATION DEBUG MARKER
+//DEBUG: CREATE MARKERS FOR USE IN DEBUG
+if (debugmode) then {
+	//CREATING PILOT LOCATION MARKER
+	_debugMarkerName = format["Pilot Location"]; //marker name
+	_debugMarker = createMarker [str(_debugMarkerName), _MissionPos];
+	str(_debugMarkerName) setMarkerType "mil_dot";
+	str(_debugMarkerName) setMarkerText "DEBUG:Pilot Location";
+	str(_debugMarkerName) setMarkerSize [1,1];
+	//CREATNG PILOT DESTINATION MARKERS
+	_debugMarkerName = format["Pilot Destination"]; //marker name
+	_debugMarker = createMarker [str(_debugMarkerName), _initpos];
+	str(_debugMarkerName) setMarkerType "mil_dot";
+	str(_debugMarkerName) setMarkerText "DEBUG:Take Pilot Here";
+	str(_debugMarkerName) setMarkerSize [1,1];
+};
+
 // CREATE PATROLS
 if(!debugmode) then {
 	sleep 1;
@@ -41,7 +58,7 @@ _choppa = "Land_Wreck_Heli_Attack_01_F" createVehicle (_missionpos);
 
 _group = createGroup west; // CREATE PILOT
 _pilot = _group createUnit ["B_Helipilot_F", [_missionpos select 0, (_missionpos select 1)+2], [], 0, "FORM"];
-_pilot setcaptive true; 
+_pilot setcaptive true;
 _pilot switchMove "acts_CrouchingIdleRifle01";
 
 // TASK AND NOTIFICATION
@@ -50,7 +67,7 @@ _taskhandle setSimpleTaskDescription ["One of our AH-99 helicopters has been dow
 _taskhandle setSimpleTaskDestination (getMarkerPos str(_markername));
 
 if (!ismultiplayer) then {
-    execVM "misc\autoSave.sqf.sqf";
+    execVM "misc\autoSave.sqf";
 };
 
 ["TaskAssigned",["",_mission_name]] call bis_fnc_showNotification;
@@ -66,8 +83,8 @@ if (alive _pilot) then {
 	titleText ["Thanks sir, this place is crawling with OPFOR forces, bring me back to main base", "PLAIN DOWN"];
 };
 
-// PLAYER IS AT BASE WITH PILOT OR PILOT DEAD --
-waitUntil {sleep 1; (_pilot distance _initpos)<50 OR !(alive _pilot)};
+// PLAYER IS WITHIN 100M OF BASE WITH PILOT OR PILOT DEAD --
+waitUntil {sleep 1; (_pilot distance _initpos)<100 OR !(alive _pilot)};
 
 // remove markers
 deleteMarker str(_markername2);
@@ -90,7 +107,7 @@ if (vehicle _pilot != _pilot) then {
 	if (speed (vehicle _pilot) > 0) then {
 		titleText ["please stop the vehicle so I can dismount.", "PLAIN DOWN"];
 	};
-	waitUntil{ sleep 5; speed (vehicle _pilot) == 0 }; 
+	waitUntil{ sleep 5; speed (vehicle _pilot) == 0 };
 
 	titleText ["thanks, wait until I step out of the vehicle.", "PLAIN DOWN"];
 	_pilot action ["GetOut", vehicle _pilot];
