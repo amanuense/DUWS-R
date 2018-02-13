@@ -10,7 +10,9 @@ while {true} do {
 	//if the player has no marker check for GPS, if the player has a GPS create the marker.    
 	_found = "ItemGPS" in assignedItems player;
 	_found =  _found || "B_UavTerminal" in assignedItems player;
-	diag_log format["gps found: %1", _found];
+    if (debugmode) then {
+        diag_log format["gps found: %1", _found];
+    };
 	if(!_player_has_gps_marker && _found) then {
 		_markerstr = createMarker [str(_markername), getPosWorld player];
 		diag_log format["creating marker: %1", _markername];

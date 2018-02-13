@@ -120,7 +120,17 @@ class CfgCommunicationMenu
         enable = "1"; // Simple expression condition for enabling the item
         removeAfterExpressionCall = 1; // 1 to remove the item after calling
     };
-};                             
+    class spawn_beacon
+    {
+        text = "Spawn Beacon (1 CP)"; // Text displayed in the menu and in a notification
+        submenu = ""; // Submenu opened upon activation
+        expression = "_null = execVM 'support\spawn_beacon.sqf'"; 
+        icon = "\a3\ui_f\data\gui\cfg\hints\Radar_ca.paa";
+        cursor = ""; // Custom cursor displayed when the item is selected
+        enable = "1"; // Simple expression condition for enabling the item
+        removeAfterExpressionCall = 0; // 1 to remove the item after calling
+    };
+};
 
 
 

@@ -230,5 +230,16 @@ class CfgNotifications
         duration = 8; // How many seconds will the notification be displayed
         priority = 0; // Priority; higher number = more important; tasks in queue are selected by priority
         difficulty[] = {}; // Required difficulty settings. All listed difficulties has to be enabled
-    };	
+    };
+    
+    class spawn_beacon
+    {
+        Title = "Spawn Beacon"; // Text displayed in the menu and in a notification
+        iconPicture = "\a3\ui_f\data\gui\cfg\hints\Radar_ca.paa";
+        iconText = "";
+        color[] = {1,1,1,1}; // Icon and text color
+        duration = 8; // How many seconds will the notification be displayed
+        priority = 0; // Priority; higher number = more important; tasks in queue are selected by priority
+        difficulty[] = {}; // Required difficulty settings. All listed difficulties has to be enabled
+    }
 };

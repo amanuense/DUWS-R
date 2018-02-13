@@ -62,18 +62,6 @@ mission_number_of_missions_done = 0;
 mission_DUWS_firstlaunch = true;
 
 
-
-// choose between "tropical" - "arid" - "temperate" - "temperate_cold" - "mediterranean"
-if (isNil "weather_type") then {weather_type = "mediterranean";};
-// set the skill range of ennemy AI
-if (isNil "opfor_ai_skill") then {opfor_ai_skill = [0.1,0.3];};
-// set the skill range of friendly AI, from 0 to 1 (0 being completely dumb)
-if (isNil "blufor_ai_skill") then {blufor_ai_skill = [0.4,0.7];};
-// by default enable fast travel
-if (isNil "enable_fast_travel") then { enable_fast_travel = true; };
-// chopper taxi (support) will fast travel (teleport) or not
-if (isNil "enableChopperFastTravel") then { enableChopperFastTravel = true; };
-
 ///////////////////////////////////////////////////////
 // initialise variables
 //////////////////////////////////////////////////////
@@ -90,6 +78,8 @@ if (isNil "commandpointsblu1") then { commandpointsblu1 = 20; };
 // STARTING ARMY POWER
 if (isNil "blufor_ap") then { blufor_ap = 0; };
 
+
+
 if (DedicatedMission) then {
     DUWSMP_CP_death_cost = paramsArray select 0; //first element
     debugmode = [false, true] select (paramsArray select 1);
@@ -101,11 +91,6 @@ if (DedicatedMission) then {
     commandpointsblu1 = 60;
     zones_number = 5;
 };
-
-opfor_ap = 0;
-zones_spacing = 1200; // minimum space between 2 zones (in meters) // SOON OBSOLETE
-zones_max_radius = 1000;   // Determine the maximum radius a generated zone can have
-zones_min_radius = 200; // Determine the minium radius a generated zone can have. SHOULD NOT BE UNDER 200.
 
 ///////////////////////////////////////////////////////
 // This mission will have a harder time generating stuff if a lot of the terrain of the island is sloped, meaning that valid locations
@@ -123,7 +108,10 @@ if(!DedicatedMission) then {
     waitUntil {scriptDone _persistent_stat_script_init};
 };
 
-//execvm "dynamic_music\dyn_music_init.sqf";
+opfor_ap = 0;
+zones_spacing = 1200; // minimum space between 2 zones (in meters) // SOON OBSOLETE
+zones_max_radius = 1000;   // Determine the maximum radius a generated zone can have
+zones_min_radius = 200; // Determine the minium radius a generated zone can have. SHOULD NOT BE UNDER 200.
 
 zones_created = false;
 blu_hq_created = false;
@@ -135,6 +123,20 @@ PAPABEAR=[West,"HQ"];
 locator_hq_actived = false;
 fobSwitch = false; //oariasri check if this is required
 player_is_choosing_hqpos = false;
+player_has_tactical_glasses = false;
+
+//////// these variables are either public or should be synced
+
+// choose between "tropical" - "arid" - "temperate" - "temperate_cold" - "mediterranean"
+if (isNil "weather_type") then {weather_type = "mediterranean";};
+// set the skill range of ennemy AI
+if (isNil "opfor_ai_skill") then {opfor_ai_skill = [0.1,0.3];};
+// set the skill range of friendly AI, from 0 to 1 (0 being completely dumb)
+if (isNil "blufor_ai_skill") then {blufor_ai_skill = [0.4,0.7];};
+// by default enable fast travel
+if (isNil "enable_fast_travel") then { enable_fast_travel = true; };
+// chopper taxi (support) will fast travel (teleport) or not
+if (isNil "enableChopperFastTravel") then { enableChopperFastTravel = true; };
 
 if (isNil "amount_zones_created") then {
     amount_zones_created = 1; //prevent the mission from prematurely end
@@ -181,19 +183,6 @@ if (isNil "FogVar") then {
     FogVar = 0;
 };
 
-// this is a special one (if/else)
-if (isNil "Array_of_FOBS") then {
-    // if the player is sp or server or no fobs have been created
-    Array_of_FOBS = [];
-}
-else /// JIP for the client
-{
-    //for players connecting once the mission has been started, add actions here
-    {
-        [_x] spawn DUWS_fnc_fob
-    } count Array_of_FOBS; //count behaves similar to foreach
-};
-
 if (isNil "Array_of_FOBname") then {
     Array_of_FOBname = [];
 };
@@ -212,24 +201,56 @@ if (isNil "support_armory_available") then {
     support_armory_available = false;
 };
 
+if (isNil "spawn_beacon_global_available") then {
+    spawn_beacon_global_available = false;
+};
+
 if (isNil "support_specialized_training_available") then {
     support_specialized_training_available = false;
 };
 
+/////// this is a special one (if/else) /////////
+if (isNil "Array_of_FOBS") then {
+    // if the player is sp or server or no fobs have been created
+    Array_of_FOBS = [];
+}
+else /// JIP for the client
+{
+    //for players connecting once the mission has been started, add actions here
+    {
+        [_x] spawn DUWS_fnc_fob
+    } count Array_of_FOBS; //count behaves similar to foreach
+    
+    //add comm menu item if purchased and for all formation leaders to all JIP players
+};
+
+if (spawn_beacon_global_available or (isFormationLeader player)) then {
+    local_spawn_beacon_comm_menu =[player, "spawn_beacon"] call BIS_fnc_addCommMenuItem;
+};
+
 player allowDamage false;
 
-
-player_has_tactical_glasses = false;
-
 //TODO add player disconnect handler.
+
+////// common player configuraitons  ///////////
 if (!isDedicated) then {
     execVM "misc\gps_marker.sqf";
     execVM "misc\laserTarget.sqf";
     //add earplugs
     player execVM "misc\simpleEP.sqf";
+    
+    0 = 0 spawn { //make sure we add the handler post init.
+    //handle purchase of spawn beacon for all clients except for the one who purchased it.
+        "spawn_beacon_global_available" addPublicVariableEventHandler {
+            if (spawn_beacon_global_available or isFormationLeader player) then {
+                    local_spawn_beacon_comm_menu = [player, "spawn_beacon"] call BIS_fnc_addCommMenuItem;
+            };
+        };
+        //add any other variable handlers here
+    };
 };
 
-//this action does not take effect on the client who disconencts only on server
+//this action does not take effect on the client who disconencts
 addMissionEventHandler ["HandleDisconnect",{_this execVM "misc\gps_deinit.sqf" }];
 
 
@@ -262,7 +283,6 @@ if (isMultiplayer) then {
             _x addaction ["<t color='#ff0066'>Armory (VA)</t>","support\bisArsenal.sqf", "", 0, true, true, "", "_this == player"];
         } count (Array_of_FOBS);
         lbSetColor [MENU_BLU_SUPPORT_REQUEST, 5, [0, 1, 0, 1]];
-
     };
 
     // change the shown CP for request dialog
@@ -272,11 +292,6 @@ if (isMultiplayer) then {
         diag_log format ["server init"];
         DUWS_host_start = false;
         publicVariable "DUWS_host_start";
-        //diag_log format ["getting defaults"];
-        //_nil = [] execVM "dialog\startup\startup_defaults.sqf";
-        //oariasri
-        //add override default number of zones here!
-        //note modify params.hpp
         waitUntil {time > 0.1};
         DUWS_host_start = true;
         publicVariable "DUWS_host_start";
@@ -403,8 +418,7 @@ if (isMultiplayer) then {
     };
 };
 
-//make sure to add sitrep to all formation leaders
-//oariasri
+//make sure to add sitrep and spawn beacon to all formation leaders
 if (isFormationLeader player) then {
     diag_log format ["player is formation leader, add sitrep"];
     _sitrep = [player,"sitrep"] call BIS_fnc_addCommMenuItem;
@@ -448,6 +462,9 @@ if (mission_DUWS_firstlaunch) then {
     sleep 15;
     // SITREP
     ["sitrepinfo",["SITREP","You can also save the game by giving a SITREP"]] call bis_fnc_showNotification;
+    
+    sleep 15;
+    ["spawn_beacon",["Beacon","teamleaders can create spawn beacon, also this option can be purchased for all other players."]] call bis_fnc_showNotification;
 
     sleep 20;
     ["info",["DUWS Manual","Check the manual in the briefing for more info"]] call bis_fnc_showNotification;
@@ -470,15 +487,3 @@ if(!isMultiplayer) then {
         };
     };
 };
-
-//Loading player position and gear.
-//TODO: Add bought supports.
-/*
-if(isServer) then
-{
-    execVM "persistent\missionSpecific\saveFuncs.sqf";
-    waitUntil {!isNil "saveFuncsLoaded"};
-
-    execVM "persistent\missionSpecific\loadAccount.sqf";
-};
-*/

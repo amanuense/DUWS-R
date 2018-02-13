@@ -111,7 +111,3 @@ if (!zones_manually_placed) then {
 };
 
 player allowDamage true;
-
-/*if(isFormationLeader player) then {
-    _sitrep = [player,"sitrep"] call BIS_fnc_addCommMenuItem;
-};*/

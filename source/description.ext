@@ -34,13 +34,13 @@ class CfgFunctions
 
 class CfgRespawnInventory
 {
-    class WEST1 { vehicle = "B_Soldier_lite_F"};
-    class WEST2 { vehicle = "B_Soldier_GL_F"};
-    class WEST3 { vehicle = "B_Soldier_SL_F"};
-    class WEST4 { vehicle = "B_Soldier_TL_F"};
-    class WEST5 { vehicle = "B_soldier_M_F"};
-    class WEST6 { vehicle = "B_medic_F"};
-    class WEST7 { vehicle = "B_Soldier_A_F"};
-    class WEST8 { vehicle = "B_soldier_AT_F"};
-    class WEST9 { vehicle = "B_recon_M_F"};
+    class WEST1 { vehicle = "B_Soldier_lite_F";};
+    class WEST2 { vehicle = "B_Soldier_GL_F";};
+    class WEST3 { vehicle = "B_Soldier_SL_F";};
+    class WEST4 { vehicle = "B_Soldier_TL_F";};
+    class WEST5 { vehicle = "B_soldier_M_F";};
+    class WEST6 { vehicle = "B_medic_F";};
+    class WEST7 { vehicle = "B_Soldier_A_F";};
+    class WEST8 { vehicle = "B_soldier_AT_F";};
+    class WEST9 { vehicle = "B_recon_M_F";};
 };

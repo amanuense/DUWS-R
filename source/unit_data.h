@@ -3,7 +3,7 @@
 
 
 //arrays containing elements for menus
-//[menu_item, string, cost, unit_type, rank, skill_modifier]
+//[menu_item, string, cost, unit_type, rank, skill_modifier, comm menu]
 _menu_request_unit_items = [
     [MENU_BLU_UNIT_REQUEST, "Rifleman",           2, "B_Soldier_F",        "private", 0.2],
     [MENU_BLU_UNIT_REQUEST, "Grenadier",          3, "B_Soldier_GL_F",     "private", 0.2],
@@ -73,11 +73,12 @@ _menu_request_vehicle_items = [
 
 //[menu_item, string, cost, comm_menu]
 _menu_request_support_items = [
-    [MENU_BLU_SUPPORT_REQUEST, "Boat Taxi",                      2,  "boat_taxi"],
-    [MENU_BLU_SUPPORT_REQUEST, "Supply drop",                    5,  "ammo"],
+    [MENU_BLU_SUPPORT_REQUEST, "Boat Taxi",                      2, "boat_taxi"],
+    [MENU_BLU_SUPPORT_REQUEST, "Supply drop",                    5, "ammo"],
     [MENU_BLU_SUPPORT_REQUEST, "Helicopter Taxi",                5, "helo_taxi"],
     [MENU_BLU_SUPPORT_REQUEST, "Mortar strike",                 10, "mortar"],
-    [MENU_BLU_SUPPORT_REQUEST, "UAV Recon",                     10, "uav_recon"],    
+    [MENU_BLU_SUPPORT_REQUEST, "UAV Recon",                     10, "uav_recon"],
+    [MENU_BLU_SUPPORT_REQUEST, "Spawn beacon all players",      10, ""], //do not add comm menu
     [MENU_BLU_SUPPORT_REQUEST, "Vehicle Refit",                 15, "vehicle_refit"],
     [MENU_BLU_SUPPORT_REQUEST, "JDAM strike",                   15, "jdam"],
     [MENU_BLU_SUPPORT_REQUEST, "Artillery strike",              20, "artillery"],

@@ -1,0 +1,25 @@
+
+diag_log format["spawn_beacon.sqf"];
+
+if (commandpointsblu1 < 1) exitWith {
+    ["info",["spawn_beacon","Not enough Command Points (1CP)"]] call bis_fnc_showNotification;
+};
+
+_playerpos = getPosWorld player;
+
+// CREATE MARKER (ICON)
+_markername = format["beacon%1",profileName]; // Define marker name
+_markerstr = createMarker [str(_markername), _playerpos];
+_markerstr setMarkerShape "ICON";
+str(_markername) setMarkerType "mil_unknown";
+str(_markername) setMarkerColor "ColorYellow";
+str(_markername) setMarkerText profileName;
+str(_markername) setMarkerSize [1, 1];
+
+_my_respawn = [West, _playerpos, profileName] call BIS_fnc_addRespawnPosition;
+
+//keep marker for 15 min
+sleep 30; //900
+
+deleteMarker str(_markername);
+_my_respawn call BIS_fnc_removeRespawnPosition;

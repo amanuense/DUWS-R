@@ -28,6 +28,7 @@ if (_is_purchased == 0) then {
         publicVariable "support_purchased";
         //handle special cases
         //armory
+        //TODO move this to event handler!!!
         if (_text == "Armory") then {
             support_armory_available = true;
             hq_blu1 addaction ["<t color='#ff0066'>Armory (VA)</t>","support\bisArsenal.sqf", "", 0, true, true, "", "_this == player"];
@@ -36,6 +37,17 @@ if (_is_purchased == 0) then {
             } count (Array_of_FOBS);
             publicVariable "support_armory_available";
             ["armory",["Armory Unlocked","Access the armory at the HQ and at the dropped supply crates"]] call bis_fnc_showNotification;
+        };
+        if (_text == "Spawn beacon all players") then {
+            spawn_beacon_global_available = true;
+            publicVariable "spawn_beacon_global_available";
+            //this condition adds the communication menu item for the local user, please note that the event handler does
+            //not process the variable being published!
+            //the menu variable is saved to avoid duplicating the item.
+            if (isNil "local_spawn_beacon_comm_menu") then {
+                local_spawn_beacon_comm_menu= [player, "spawn_beacon"] call BIS_fnc_addCommMenuItem;
+            };
+            ["spawn_beacon",["Beacon","all player can now set a spawn beacon"]] call bis_fnc_showNotification;
         };
         //troop training
         if (_text == "Specialized Infantry training") then {
