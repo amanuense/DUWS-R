@@ -49,7 +49,6 @@ _menu_request_vehicle_items = [
     [MENU_BLU_VEHICLE_REQUEST, "Stomper Autonomous Recon",       10, "B_UGV_01_F"],
     [MENU_BLU_VEHICLE_REQUEST, "UAV GreyHawk w/ATG Missiles",    10, "B_UAV_02_F"],
     [MENU_BLU_VEHICLE_REQUEST, "M-900 Civilian Copter",          12, "C_Heli_Light_01_civil_F"],
-    
     [MENU_BLU_VEHICLE_REQUEST, "UAV GreyHawk w/Bombs",           15, "B_UAV_02_CAS_F"],
     [MENU_BLU_VEHICLE_REQUEST, "MH-9 Hummingbird",               15, "B_Heli_Light_01_F"],
     [MENU_BLU_VEHICLE_REQUEST, "Mi-290Black Taru Sling",         18, "O_Heli_Transport_04_F"],
@@ -75,16 +74,18 @@ _menu_request_vehicle_items = [
 _menu_request_support_items = [
     [MENU_BLU_SUPPORT_REQUEST, "Boat Taxi",                      2,  "boat_taxi"],
     [MENU_BLU_SUPPORT_REQUEST, "Supply drop",                    5,  "ammo"],
-    [MENU_BLU_SUPPORT_REQUEST, "Helicopter Taxi",                5, "helo_taxi"],
-    [MENU_BLU_SUPPORT_REQUEST, "Mortar strike",                 10, "mortar"],
-    [MENU_BLU_SUPPORT_REQUEST, "UAV Recon",                     10, "uav_recon"],    
     [MENU_BLU_SUPPORT_REQUEST, "Vehicle Refit",                 15, "vehicle_refit"],
-    [MENU_BLU_SUPPORT_REQUEST, "JDAM strike",                   15, "jdam"],
-    [MENU_BLU_SUPPORT_REQUEST, "Artillery strike",              20, "artillery"],
     [MENU_BLU_SUPPORT_REQUEST, "Airborne troops",               20, "paradrop"],
     [MENU_BLU_SUPPORT_REQUEST, "Specialized Infantry training", 20, ""],
-    [MENU_BLU_SUPPORT_REQUEST, "Mk.20 II CBU",                  25, "cluster"],
     [MENU_BLU_SUPPORT_REQUEST, "Armory",                        30,  ""]
-    //pflir will be removed soon.
-    //[MENU_BLU_SUPPORT_REQUEST, "Personal FLIR display",         20, ""],
+    ];
+
+//[menu_item, string, cost, comm_menu]
+_menu_request_personal_support = [
+    [MENU_BLU_PERSONAL_REQUEST, "Helicopter Taxi",                5, "helo_taxi"],
+    [MENU_BLU_PERSONAL_REQUEST, "Mortar strike",                 10, "mortar"],
+    [MENU_BLU_PERSONAL_REQUEST, "UAV Recon",                     10, "uav_recon"],
+    [MENU_BLU_PERSONAL_REQUEST, "JDAM strike",                   15, "jdam"],
+    [MENU_BLU_PERSONAL_REQUEST, "Artillery strike",              20, "artillery"],
+    [MENU_BLU_PERSONAL_REQUEST, "Mk.20 II CBU",                  25, "cluster"]
     ];

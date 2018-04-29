@@ -49,8 +49,17 @@ class ressourceheader
         class supportunlockframe: RscFrame
         {
             idc = 1804;
-            text = "UNLOCK SUPPORT";
+            text = "UNLOCK TEAM";
             x = 26.5 * GUI_GRID_W + GUI_GRID_X;
+            y = 17.5 * GUI_GRID_H + GUI_GRID_Y;
+            w = 12.5 * GUI_GRID_W;
+            h = 5.5 * GUI_GRID_H;
+        };
+        class personalunlockframe: RscFrame
+        {
+            idc = 1804;
+            text = "UNLOCK PERSONAL";
+            x = 13.5 * GUI_GRID_W + GUI_GRID_X;
             y = 17.5 * GUI_GRID_H + GUI_GRID_Y;
             w = 12.5 * GUI_GRID_W;
             h = 5.5 * GUI_GRID_H;
@@ -97,6 +106,17 @@ class ressourceheader
             tooltip = "Request an EMPTY vehicle to spawn at your position";
             action = "_nil=[]ExecVM ""dialog\request_vehicle.sqf""";
         };
+        class personalunlockbutton: RscButton
+        {
+            idc = 1605;
+            text = "UNLOCK";
+            x = 14 * GUI_GRID_W + GUI_GRID_X;
+            y = 21.5 * GUI_GRID_H + GUI_GRID_Y;
+            w = 11.5 * GUI_GRID_W;
+            h = 1 * GUI_GRID_H;
+            action = "_nil=[]ExecVM ""dialog\request_personal.sqf""";
+            tooltip = "Unlock personal supports accessible with the communication menu (0-8) in the radio";
+        };
         class supportunlockbutton: RscButton
         {
             idc = 1603;
@@ -106,7 +126,7 @@ class ressourceheader
             w = 11.5 * GUI_GRID_W;
             h = 1 * GUI_GRID_H;
             action = "_nil=[]ExecVM ""dialog\request_support.sqf""";
-            tooltip = "Unlock supports accessible with the communication menu (0-8) in the radio";
+            tooltip = "Unlock team supports accessible with the communication menu (0-8) in the radio";
         };
         class exitbutton: RscButton
         {
@@ -221,6 +241,15 @@ class ressourceheader
         {
             idc = MENU_BLU_SUPPORT_REQUEST;
             x = 27 * GUI_GRID_W + GUI_GRID_X;
+            y = 18.5 * GUI_GRID_H + GUI_GRID_Y;
+            w = 11.5 * GUI_GRID_W;
+            h = 2.5 * GUI_GRID_H;
+                sizeEx = 0.025;
+        };
+        class personalunlocklist: RscListBox
+        {
+            idc = MENU_BLU_PERSONAL_REQUEST;
+            x = 14 * GUI_GRID_W + GUI_GRID_X;
             y = 18.5 * GUI_GRID_H + GUI_GRID_Y;
             w = 11.5 * GUI_GRID_W;
             h = 2.5 * GUI_GRID_H;

@@ -22,10 +22,10 @@ if (_is_purchased == 0) then {
         //this will add the item to the current player
         if !(_comm_menu == "") then { [player, _comm_menu] call BIS_fnc_addCommMenuItem; };
         lbSetColor [_menu_item, _index, [0, 1, 0, 1]];
-
-        //set purchased
+        //announcing the var to all players
         support_purchased set [_index,1];
         publicVariable "support_purchased";
+
         //handle special cases
         //armory
         if (_text == "Armory") then {

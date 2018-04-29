@@ -18,12 +18,12 @@ add_menu_items = {
     lbSetCurSel [(_array select 0) select 0, 0];
 };
 
-
 //this code adds all elements to the menu
-[_menu_request_unit_items]    call add_menu_items;
-[_menu_request_squad_items]   call add_menu_items;
-[_menu_request_vehicle_items] call add_menu_items;
-[_menu_request_support_items] call add_menu_items;
+[_menu_request_unit_items]       call add_menu_items;
+[_menu_request_squad_items]      call add_menu_items;
+[_menu_request_vehicle_items]    call add_menu_items;
+[_menu_request_personal_support] call add_menu_items;
+[_menu_request_support_items]    call add_menu_items;
 
 //requested support items require a different color
 {

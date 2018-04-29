@@ -203,9 +203,14 @@ if (isNil "squad_counters") then {
     squad_counters = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 };
 
+if (isNil "personal_purchased") then {
+    //todo initialize based on the menu element size
+    personal_purchased = [0,0,0,0,0,0];
+};
+
 if (isNil "support_purchased") then {
     //todo initialize based on the menu element size
-    support_purchased = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+    support_purchased = [0,0,0,0,0,0];
 };
 
 if (isNil "support_armory_available") then {
