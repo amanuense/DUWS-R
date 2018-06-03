@@ -22,7 +22,7 @@ if (_is_purchased == 0) then {
         //this will add the item to the current player
         if !(_comm_menu == "") then { [player, _comm_menu] call BIS_fnc_addCommMenuItem; };
         lbSetColor [_menu_item, _index, [0, 1, 0, 1]];
-
+        //setting the personal item as bought
         personal_purchased set [_index,1];
     } else {
         hint "Not enough command points";

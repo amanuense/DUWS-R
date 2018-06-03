@@ -19,9 +19,13 @@ if (_is_purchased == 0) then {
         diag_log format["requesting %1", _text];
         commandpointsblu1 = commandpointsblu1 - _cost;
         ctrlSetText [MENU_COMMAND_POINTS_BLU, format["%1",commandpointsblu1]];
-        //this will add the item to the current player
+        /*this will add the item to the current player - REMOVED for now as i work on getting this to all players. Lines 22 - 25 should be removed. DO NOT FORGET THIS CAIUS, YOU IDIOT. - caius
         if !(_comm_menu == "") then { [player, _comm_menu] call BIS_fnc_addCommMenuItem; };
         lbSetColor [_menu_item, _index, [0, 1, 0, 1]];
+        */
+        //Add commMenuItem to player
+        [player, _comm_menu] call BIS_fnc_addCommMenuItem;
+
         //announcing the var to all players
         support_purchased set [_index,1];
         publicVariable "support_purchased";

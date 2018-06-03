@@ -260,14 +260,18 @@ if (isMultiplayer) then {
         }];
     "support_specialized_training_available" addPublicVariableEventHandler {lbSetColor [MENU_BLU_SUPPORT_REQUEST, 11, [0, 1, 0, 1]];};
 
-    //verify if this is needed.
+    //Add armoury when bought
     "support_armory_available" addPublicVariableEventHandler {
         hq_blu1 addaction ["<t color='#ff0066'>Armory (VA)</t>","support\bisArsenal.sqf", "", 0, true, true, "", "_this == player"];
         {
             _x addaction ["<t color='#ff0066'>Armory (VA)</t>","support\bisArsenal.sqf", "", 0, true, true, "", "_this == player"];
         } count (Array_of_FOBS);
         lbSetColor [MENU_BLU_SUPPORT_REQUEST, 5, [0, 1, 0, 1]];
+    };
 
+    //add public supports when bought
+    "support_purchased" addPublicVariableEventHandler {
+      [player, _comm_menu] remoteExec ["BIS_fnc_addCommMenuItem", -2, 1];
     };
 
     // change the shown CP for request dialog
