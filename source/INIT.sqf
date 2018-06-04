@@ -200,7 +200,7 @@ if (isNil "Array_of_FOBname") then {
 
 if (isNil "squad_counters") then {
     //todo initialize based on the menu element size
-    squad_counters = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+    squad_counters = [0,0,0,0,0,0,0,0,0,0,0,0];
 };
 
 if (isNil "personal_purchased") then {
@@ -270,8 +270,8 @@ if (isMultiplayer) then {
     };
 
     //add public supports when bought
-    "support_purchased" addPublicVariableEventHandler {
-      [player, _comm_menu] remoteExec ["BIS_fnc_addCommMenuItem", -2, 1];
+    "last_support_purchased" addPublicVariableEventHandler {
+      [player, last_support_purchased] call BIS_fnc_addCommMenuItem;
     };
 
     // change the shown CP for request dialog

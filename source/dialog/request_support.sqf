@@ -26,9 +26,11 @@ if (_is_purchased == 0) then {
         //Add commMenuItem to player
         [player, _comm_menu] call BIS_fnc_addCommMenuItem;
 
-        //announcing the var to all players
+        //announcing the vars to all players
         support_purchased set [_index,1];
+        last_support_purchased = _comm_menu;
         publicVariable "support_purchased";
+        publicVariable "last_support_purchased";
 
         //handle special cases
         //armory
