@@ -23,6 +23,4 @@ class Params {
         texts[]  = {"1", "2", "3", "5", "7", "10", "15"};
         default = 5;
     };
-
-    #include "\a3\Functions_F\Params\paramRevive.hpp"
 }
